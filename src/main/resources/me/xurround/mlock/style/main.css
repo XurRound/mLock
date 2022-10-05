@@ -50,14 +50,18 @@ TextField {
     -fx-spacing: 15;
 }
 
-#mainPane {
+.mainBackground {
+    -fx-padding: 10;
+}
+
+.imgBackground {
     -fx-background-image: url("../img/background.png");
     -fx-background-repeat: stretch stretch;
     -fx-background-position: center center;
     -fx-background-size: 800 500;
 }
 
-#registerContent {
+.registerContent {
     -fx-spacing: 10;
 }
 
@@ -67,4 +71,17 @@ TextField {
 
 .hintedField > Label {
     -fx-min-width: 150;
+}
+
+.dirChooserView > TextField {
+    -fx-border-radius: 5 0 0 5;
+    -fx-background-radius: 5 0 0 5;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-border-width: 0;
+}
+
+.dirChooserView > Button {
+    -fx-border-radius: 0 5 5 0;
+    -fx-background-radius: 0 5 5 0;
 }

@@ -12,9 +12,8 @@
            prefWidth="800.0"
            prefHeight="500.0"
            stylesheets="@../style/main.css"
-           styleClass="background"
-           fx:id="mainPane">
+           styleClass="background,mainBackground">
 
-
+    <TableView fx:id="pmTable"/>
 
 </StackPane>

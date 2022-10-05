@@ -12,8 +12,7 @@
            prefWidth="800.0"
            prefHeight="500.0"
            stylesheets="@../style/main.css"
-           styleClass="background"
-           fx:id="mainPane">
+           styleClass="background,imgBackground">
 
     <HBox styleClass="innerBox"
           prefWidth="400"

@@ -5,7 +5,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import me.xurround.mlock.App;
 import me.xurround.mlock.misc.IOHelper;
+import me.xurround.mlock.misc.enums.TransitionType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,9 +29,17 @@ public class RegisterController implements Initializable
     @FXML
     private Button changeStoragePathBtn;
 
+    @FXML
+    private Button registerProfileBtn;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         storagePathTF.setText(IOHelper.getWorkingDirectoryPath().toString());
+
+        registerProfileBtn.setOnMouseClicked(mouseEvent ->
+        {
+            App.getInstance().getSceneManager().setLayout("main", TransitionType.FADE);
+        });
     }
 }
