@@ -1,0 +1,70 @@
+@font-face {
+    src: url("../font/whitney-medium.ttf");
+}
+
+.background {
+    -fx-background-color: #313335;
+}
+
+.innerBox {
+    -fx-background-color: #313335;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, #000000, 20, 0.001, 0, 0);
+    -fx-text-fill: #FFF;
+    -fx-border-color: #246FC6;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+}
+
+Label {
+    -fx-background-color: #313335;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16;
+    -fx-font-family: 'Whitney Medium';
+}
+
+Button {
+    -fx-background-color: #FFF;
+    -fx-text-fill: #000;
+    -fx-background-radius: 5;
+    -fx-font-size: 14;
+    -fx-font-family: 'Whitney Medium';
+}
+
+Button:hover {
+    -fx-background-color: #DDD;
+}
+
+Button:armed {
+    -fx-background-color: #AAA;
+}
+
+TextField {
+    -fx-background-radius: 5;
+    -fx-font-size: 14;
+    -fx-font-family: 'Whitney Medium';
+}
+
+#splashContent {
+    -fx-spacing: 15;
+}
+
+#mainPane {
+    -fx-background-image: url("../img/background.png");
+    -fx-background-repeat: stretch stretch;
+    -fx-background-position: center center;
+    -fx-background-size: 800 500;
+}
+
+#registerContent {
+    -fx-spacing: 10;
+}
+
+.hintedField {
+    -fx-alignment: center;
+}
+
+.hintedField > Label {
+    -fx-min-width: 150;
+}

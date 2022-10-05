@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="me.xurround.mlock.controller.SplashController"
+           prefWidth="800.0"
+           prefHeight="500.0"
+           stylesheets="@../style/main.css"
+           styleClass="background"
+           fx:id="mainPane">
+
+    <HBox styleClass="innerBox"
+          prefWidth="400"
+          prefHeight="200"
+          maxWidth="400"
+          maxHeight="200"
+          alignment="CENTER">
+
+        <VBox alignment="CENTER"
+              prefWidth="400"
+              prefHeight="200"
+              fx:id="splashContent">
+
+            <Label alignment="TOP_CENTER"
+                   text="Welcome!"
+                   style="-fx-font-size: 24;"/>
+            <Label fx:id="splashText"
+                   wrapText="true"
+                   textAlignment="CENTER"/>
+
+            <Button text="Register profile"
+                    prefWidth="150"
+                    fx:id="registerBtn"/>
+        </VBox>
+
+    </HBox>
+
+</StackPane>

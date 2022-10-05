@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.skin.SplitPaneSkin.ContentDivider?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="me.xurround.mlock.controller.RegisterController"
+           prefWidth="800.0"
+           prefHeight="500.0"
+           stylesheets="@../style/main.css"
+           styleClass="background"
+           fx:id="mainPane">
+
+    <HBox styleClass="innerBox"
+          prefWidth="500"
+          prefHeight="300"
+          maxWidth="500"
+          maxHeight="300"
+          alignment="CENTER">
+
+        <VBox alignment="CENTER"
+              prefWidth="500"
+              prefHeight="300"
+              fx:id="registerContent">
+
+            <Label alignment="TOP_CENTER"
+                   text="Register profile"
+                   style="-fx-font-size: 24;"/>
+
+            <Label alignment="TOP_CENTER"
+                   text="Just a few questions..."
+                   style="-fx-font-size: 16;"/>
+
+            <HBox styleClass="hintedField">
+                <Label text="Profile name"/>
+                <TextField alignment="CENTER"
+                           promptText="Profile name"
+                           prefWidth="240"
+                           fx:id="profileNameTF"/>
+            </HBox>
+
+            <HBox styleClass="hintedField">
+                <Label text="Master password"/>
+                <PasswordField alignment="CENTER"
+                               promptText="Master password"
+                               prefWidth="240"
+                               fx:id="masterPasswordPF"/>
+            </HBox>
+
+            <HBox styleClass="hintedField">
+                <Label text="Confirm password"/>
+                <PasswordField alignment="CENTER"
+                               promptText="Confirm password"
+                               prefWidth="240"
+                               fx:id="confirmPasswordPF"/>
+            </HBox>
+
+            <HBox styleClass="hintedField">
+                <Label text="Profile storage path"/>
+                <TextField alignment="CENTER"
+                           prefWidth="210"
+                           fx:id="storagePathTF"/>
+                <Button text="..."
+                        fx:id="changeStoragePathBtn"/>
+            </HBox>
+
+            <Button text="Register profile"
+                    prefWidth="150"/>
+        </VBox>
+
+    </HBox>
+
+</StackPane>
+
