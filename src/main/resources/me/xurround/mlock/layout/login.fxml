@@ -6,11 +6,67 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="me.xurround.mlock.controller.LoginController"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.shape.Circle?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="me.xurround.mlock.controller.LoginController"
+           prefWidth="800.0"
+           prefHeight="500.0"
+           stylesheets="@../style/main.css"
+           styleClass="background,imgBackground">
+
+    <HBox styleClass="innerBox"
+          prefWidth="400"
+          prefHeight="200"
+          maxWidth="400"
+          maxHeight="200"
+          alignment="CENTER">
+
+        <VBox alignment="CENTER"
+              prefWidth="400"
+              prefHeight="200"
+              styleClass="spaced15">
+
+            <Label alignment="TOP_CENTER"
+                   text="Welcome!"
+                   style="-fx-font-size: 24;"/>
+
+            <HBox alignment="CENTER">
+                <StackPane styleClass="avatar">
+                    <Circle fx:id="avatarCL" radius="50"/>
+                    <Label fx:id="avatarLB" alignment="CENTER" text="X"/>
+                </StackPane>
+                <VBox alignment="CENTER_LEFT"
+                      styleClass="profileLogo">
+                    <Label fx:id="profileName"
+                           text="XurRound"/>
+                    <Hyperlink fx:id="changeProfileHL"
+                               text="Change profile..."/>
+                </VBox>
+            </HBox>
 
 
+            <Label fx:id="loginText"
+                   wrapText="true"
+                   textAlignment="CENTER"/>
 
-</AnchorPane>
+            <PasswordField fx:id="passwordPF"
+                           alignment="CENTER"
+                           promptText="Your super-secure password"/>
+
+            <VBox alignment="CENTER" spacing="5">
+
+                <Button fx:id="loginBtn"
+                        text="Log In"
+                        minWidth="150"/>
+
+                <Hyperlink fx:id="forgotPasswordHL"
+                           text="Forgot password?" />
+
+            </VBox>
+
+        </VBox>
+
+    </HBox>
+
+</StackPane>

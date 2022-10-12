@@ -46,7 +46,7 @@ TextField {
     -fx-font-family: 'Whitney Medium';
 }
 
-#splashContent {
+.spaced15 {
     -fx-spacing: 15;
 }
 
@@ -84,4 +84,77 @@ TextField {
 .dirChooserView > Button {
     -fx-border-radius: 0 5 5 0;
     -fx-background-radius: 0 5 5 0;
+}
+
+.table-view {
+    -fx-background-color: transparent;
+}
+
+.table-view:focused {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(#1E1E1E 0%, #313335 100%);
+}
+
+.table-view .column-header-background .label {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: white;
+}
+
+.table-row-cell {
+    -fx-background-color: #313335;
+    -fx-background-insets: 0, 0 0 0 0;
+    -fx-padding: 0.0;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #424242;
+    -fx-background-insets: 0, 0 0 0 0;
+    -fx-padding: 0.0;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #246FC6;
+    -fx-background-insets: 0;
+    -fx-background-radius: 10;
+}
+
+Hyperlink {
+    -fx-border-color: transparent;
+}
+
+Hyperlink:armed {
+    -fx-text-fill: #FFF;
+}
+
+.avatar {
+    -fx-spacing: 5;
+}
+
+.avatar > Circle {
+    -fx-fill: linear-gradient(from 0% 0% to 100% 100%, #4158d0 , #c850c0);
+}
+
+.avatar > Label {
+    -fx-background-color: transparent;
+    -fx-font-size: 48;
+}
+
+.profileLogo {
+    -fx-padding: 5;
+}
+
+.profileLogo > Label {
+    -fx-text-alignment: left;
+    -fx-padding: 0 0 0 5;
 }

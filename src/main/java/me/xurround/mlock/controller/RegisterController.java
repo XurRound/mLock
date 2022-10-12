@@ -7,6 +7,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import me.xurround.mlock.App;
 import me.xurround.mlock.misc.IOHelper;
+import me.xurround.mlock.misc.enums.AppScene;
 import me.xurround.mlock.misc.enums.TransitionType;
 
 import java.net.URL;
@@ -39,7 +40,7 @@ public class RegisterController implements Initializable
 
         registerProfileBtn.setOnMouseClicked(mouseEvent ->
         {
-            App.getInstance().getSceneManager().setLayout("main", TransitionType.FADE);
+            App.getInstance().getSceneManager().setLayout(AppScene.MAIN, TransitionType.SLIDE_RIGHT);
         });
     }
 }

@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import me.xurround.mlock.App;
+import me.xurround.mlock.misc.enums.AppScene;
 import me.xurround.mlock.misc.enums.TransitionType;
 import me.xurround.mlock.settings.Localization;
 
@@ -26,7 +27,7 @@ public class SplashController implements Initializable
 
         registerBtn.setOnMouseClicked(mouseEvent ->
         {
-            App.getInstance().getSceneManager().setLayout("register", TransitionType.FADE);
+            App.getInstance().getSceneManager().setLayout(AppScene.REGISTER, TransitionType.SLIDE_RIGHT);
         });
     }
 }

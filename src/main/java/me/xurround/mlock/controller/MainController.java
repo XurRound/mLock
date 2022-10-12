@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.skin.TableViewSkin;
 import me.xurround.mlock.model.ServiceField;
 
 import java.net.URL;
@@ -21,14 +22,18 @@ public class MainController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        TableColumn<ServiceField, String> serviceNameColumn = new TableColumn<ServiceField, String>("Service");
-        serviceNameColumn.setCellValueFactory(new PropertyValueFactory<ServiceField, String>("serviceName"));
-        TableColumn<ServiceField, String> serviceUsernameColumn = new TableColumn<ServiceField, String>("Username");
-        serviceUsernameColumn.setCellValueFactory(new PropertyValueFactory<ServiceField, String>("serviceUsername"));
-        TableColumn<ServiceField, String> servicePasswordColumn = new TableColumn<ServiceField, String>("Password");
-        servicePasswordColumn.setCellValueFactory(new PropertyValueFactory<ServiceField, String>("servicePassword"));
-        TableColumn<ServiceField, Integer> serviceRegistrationDateColumn = new TableColumn<ServiceField, Integer>("Registration Date");
-        serviceRegistrationDateColumn.setCellValueFactory(new PropertyValueFactory<ServiceField, Integer>("serviceRegistrationDate"));
+        TableColumn<ServiceField, String> serviceNameColumn = new TableColumn<>("Service");
+        serviceNameColumn.prefWidthProperty().bind(pmTable.widthProperty().multiply(0.25));
+        serviceNameColumn.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
+        TableColumn<ServiceField, String> serviceUsernameColumn = new TableColumn<>("Username");
+        serviceUsernameColumn.prefWidthProperty().bind(pmTable.widthProperty().multiply(0.25));
+        serviceUsernameColumn.setCellValueFactory(new PropertyValueFactory<>("serviceUsername"));
+        TableColumn<ServiceField, String> servicePasswordColumn = new TableColumn<>("Password");
+        servicePasswordColumn.prefWidthProperty().bind(pmTable.widthProperty().multiply(0.25));
+        servicePasswordColumn.setCellValueFactory(new PropertyValueFactory<>("servicePassword"));
+        TableColumn<ServiceField, Integer> serviceRegistrationDateColumn = new TableColumn<>("Registration Date");
+        serviceRegistrationDateColumn.prefWidthProperty().bind(pmTable.widthProperty().multiply(0.25).subtract(2));
+        serviceRegistrationDateColumn.setCellValueFactory(new PropertyValueFactory<>("serviceRegistrationDate"));
 
         pmTable.getColumns().addAll(serviceNameColumn, serviceUsernameColumn, servicePasswordColumn, serviceRegistrationDateColumn);
 
@@ -37,7 +42,10 @@ public class MainController implements Initializable
                 new ServiceField("Twitter", "qwegbsfDsag", "adgasfg", new Date()),
                 new ServiceField("Facebook", "123gagra", "adgasfg", new Date())
         );
-        pmTable.setColumnResizePolicy(cb -> true);
+
+        pmTable.getSelectionModel().setCellSelectionEnabled(true);
+
+        pmTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         pmTable.setItems(services);
     }
 }
