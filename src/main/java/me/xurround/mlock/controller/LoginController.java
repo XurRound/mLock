@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import me.xurround.mlock.misc.enums.AppScene;
-import me.xurround.mlock.settings.Localization;
+import me.xurround.mlock.misc.enums.Language;
 import me.xurround.mlock.misc.enums.TransitionType;
 
 import java.net.URL;
@@ -44,10 +44,14 @@ public class LoginController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        loginText.setText(Localization.getLocalizedString("login_text"));
+        loginText.setText(App.getInstance().getLocalizationManager().getLocalizedString("login_text"));
 
         loginBtn.setOnMouseClicked(mouseEvent ->
         {
+            if (passwordPF.getText().equals("123"))
+                App.getInstance().getDataManager().getPreferences().getCurrentProfile().setLanguage(Language.RU);
+            else
+                App.getInstance().getDataManager().getPreferences().getCurrentProfile().setLanguage(Language.EN);
             App.getInstance().getSceneManager().setLayout(AppScene.SPLASH, TransitionType.SLIDE_RIGHT);
         });
 

@@ -150,11 +150,18 @@ Hyperlink:armed {
     -fx-font-size: 48;
 }
 
+.avatarBackground {
+    -fx-background-color: #1E1E1E;
+    -fx-background-radius: 100;
+    -fx-padding: 10;
+}
+
 .profileLogo {
-    -fx-padding: 5;
+    -fx-padding: 5 10 5 10;
 }
 
 .profileLogo > Label {
+    -fx-background-color: transparent;
     -fx-text-alignment: left;
     -fx-padding: 0 0 0 5;
 }

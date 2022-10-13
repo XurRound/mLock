@@ -32,18 +32,23 @@
                    style="-fx-font-size: 24;"/>
 
             <HBox alignment="CENTER">
-                <StackPane styleClass="avatar">
-                    <Circle fx:id="avatarCL" radius="50"/>
-                    <Label fx:id="avatarLB" alignment="CENTER" text="X"/>
-                </StackPane>
-                <VBox alignment="CENTER_LEFT"
-                      styleClass="profileLogo">
-                    <Label fx:id="profileName"
-                           text="XurRound"/>
-                    <Hyperlink fx:id="changeProfileHL"
-                               text="Change profile..."/>
-                </VBox>
+                <AnchorPane>
+                    <HBox styleClass="avatarBackground">
+                        <StackPane styleClass="avatar">
+                            <Circle fx:id="avatarCL" radius="50"/>
+                            <Label fx:id="avatarLB" alignment="CENTER" text="X"/>
+                        </StackPane>
+                        <VBox alignment="CENTER_LEFT"
+                              styleClass="profileLogo">
+                            <Label fx:id="profileName"
+                                   text="XurRound"/>
+                            <Hyperlink fx:id="changeProfileHL"
+                                       text="Change profile..."/>
+                        </VBox>
+                    </HBox>
+                </AnchorPane>
             </HBox>
+
 
 
             <Label fx:id="loginText"

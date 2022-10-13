@@ -3,14 +3,17 @@ package me.xurround.mlock;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import me.xurround.mlock.layout.SceneManager;
+import me.xurround.mlock.logic.DataManager;
 import me.xurround.mlock.misc.enums.AppScene;
-import me.xurround.mlock.settings.Localization;
-
-import java.io.IOException;
+import me.xurround.mlock.settings.LocalizationManager;
 
 public class App extends Application
 {
     private SceneManager sceneManager;
+
+    private DataManager dataManager;
+
+    private LocalizationManager localizationManager;
 
     private static App instance;
 
@@ -20,13 +23,20 @@ public class App extends Application
     }
 
     @Override
-    public void start(Stage stage) throws IOException
+    public void start(Stage stage)
     {
         System.setProperty("prism.lcdtext", "false");
+        dataManager = new DataManager();
+        localizationManager = new LocalizationManager();
+        localizationManager.setLanguage(getDataManager().getPreferences().getCurrentProfile().getLanguage());
         sceneManager = new SceneManager(stage, 800, 500);
         sceneManager.setLayout(AppScene.LOGIN);
-        stage.setTitle(Localization.getLocalizedString("title_pass_manager"));
+        stage.setTitle(getLocalizationManager().getLocalizedString("title_pass_manager"));
         stage.setResizable(false);
+        stage.setOnCloseRequest(e ->
+        {
+            dataManager.savePreferences();
+        });
         stage.show();
     }
 
@@ -40,8 +50,18 @@ public class App extends Application
         return instance;
     }
 
+    public DataManager getDataManager()
+    {
+        return dataManager;
+    }
+
     public SceneManager getSceneManager()
     {
         return sceneManager;
+    }
+
+    public LocalizationManager getLocalizationManager()
+    {
+        return localizationManager;
     }
 }

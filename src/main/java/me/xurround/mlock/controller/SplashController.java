@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import me.xurround.mlock.App;
 import me.xurround.mlock.misc.enums.AppScene;
 import me.xurround.mlock.misc.enums.TransitionType;
-import me.xurround.mlock.settings.Localization;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,7 +22,7 @@ public class SplashController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        splashText.setText(Localization.getLocalizedString("splash_text"));
+        splashText.setText(App.getInstance().getLocalizationManager().getLocalizedString("splash_text"));
 
         registerBtn.setOnMouseClicked(mouseEvent ->
         {
