@@ -1,9 +1,10 @@
 package me.xurround.mlock;
 
-import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.application.Application;
 import me.xurround.mlock.layout.SceneManager;
 import me.xurround.mlock.logic.DataManager;
+import me.xurround.mlock.logic.prefs.JSONPreferencesLoader;
 import me.xurround.mlock.misc.enums.AppScene;
 import me.xurround.mlock.settings.LocalizationManager;
 
@@ -26,11 +27,14 @@ public class App extends Application
     public void start(Stage stage)
     {
         System.setProperty("prism.lcdtext", "false");
-        dataManager = new DataManager();
+        dataManager = new DataManager(new JSONPreferencesLoader());
         localizationManager = new LocalizationManager();
-        localizationManager.setLanguage(getDataManager().getPreferences().getCurrentProfile().getLanguage());
+        localizationManager.setLanguage(getDataManager().getPreferences().getLanguage());
         sceneManager = new SceneManager(stage, 800, 500);
-        sceneManager.setLayout(AppScene.LOGIN);
+        if (getDataManager().getPreferences().isFirstRun())
+            sceneManager.setLayout(AppScene.SPLASH);
+        else
+            sceneManager.setLayout(AppScene.PROFILE_SELECT);
         stage.setTitle(getLocalizationManager().getLocalizedString("title_pass_manager"));
         stage.setResizable(false);
         stage.setOnCloseRequest(e ->

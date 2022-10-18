@@ -49,8 +49,6 @@
                 </AnchorPane>
             </HBox>
 
-
-
             <Label fx:id="loginText"
                    wrapText="true"
                    textAlignment="CENTER"/>

@@ -3,18 +3,17 @@ package me.xurround.mlock.model;
 import me.xurround.mlock.misc.enums.Language;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Profile implements Serializable
 {
-    private String profileName;
+    private String name;
     private String dataDir;
-    private Language language;
 
-    public Profile(String profileName, String dataPath, Language language)
+    public Profile(String name, String dataDir)
     {
-        this.profileName = profileName;
-        this.dataDir = dataPath;
-        this.language = language;
+        this.name = name;
+        this.dataDir = dataDir;
     }
 
     public String getDataDir()
@@ -27,23 +26,35 @@ public class Profile implements Serializable
         this.dataDir = dataDir;
     }
 
-    public Language getLanguage()
-    {
-        return language;
-    }
-
-    public void setLanguage(Language language)
-    {
-        this.language = language;
-    }
-
     public String getProfileName()
     {
-        return profileName;
+        return name;
     }
 
     public void setProfileName(String profileName)
     {
-        this.profileName = profileName;
+        this.name = profileName;
+    }
+
+    public static Profile getDefault()
+    {
+        return new Profile("Default", "default");
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Profile profile = (Profile)o;
+        return profile.name.equals(name) && profile.dataDir.equals(dataDir);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(name, dataDir);
     }
 }

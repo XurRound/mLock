@@ -165,3 +165,11 @@ Hyperlink:armed {
     -fx-text-alignment: left;
     -fx-padding: 0 0 0 5;
 }
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.hoverFill:hover {
+    -fx-background-color: #303348;
+}

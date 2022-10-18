@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="me.xurround.mlock.controller.ProfileSelectController"
+           prefWidth="800.0"
+           prefHeight="500.0"
+           stylesheets="@../style/main.css"
+           styleClass="background,imgBackground">
+
+    <VBox styleClass="innerBox"
+          prefWidth="700"
+          prefHeight="400"
+          maxWidth="700"
+          maxHeight="400"
+          alignment="CENTER"
+          spacing="10">
+
+        <VBox alignment="CENTER"
+              style="-fx-padding: 0 0 6 0;">
+            <Label alignment="TOP_CENTER"
+                   text="Select profile"
+                   style="-fx-font-size: 24;"/>
+            <Label alignment="TOP_CENTER"
+                   text="or create a new one"
+                   style="-fx-font-size: 16;"/>
+        </VBox>
+
+        <ScrollPane styleClass="background"
+                    fitToWidth="true"
+                    fitToHeight="true"
+                    hbarPolicy="NEVER"
+                    prefWidth="700"
+                    prefHeight="400">
+
+            <GridPane styleClass="background"
+                      fx:id="profilesContainer"
+                      gridLinesVisible="true"
+                      alignment="CENTER">
+
+            </GridPane>
+
+        </ScrollPane>
+
+        <Button fx:id="registerBT" alignment="CENTER" text="Create profile"/>
+
+    </VBox>
+
+</StackPane>

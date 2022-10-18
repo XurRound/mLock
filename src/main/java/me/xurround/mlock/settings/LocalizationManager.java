@@ -16,8 +16,7 @@ public class LocalizationManager
 
     public void setLanguage(Language language)
     {
-        localeBundle = ResourceBundle.getBundle("me/xurround/mlock/lang/lang",
-                new Locale(language.name().toLowerCase()));
+        localeBundle = ResourceBundle.getBundle("me/xurround/mlock/lang/lang", new Locale(language.name().toLowerCase()));
     }
 
     public String getLocalizedString(String key, String defaultValue)

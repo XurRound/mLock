@@ -1,6 +1,6 @@
 package me.xurround.mlock.logic;
 
-import me.xurround.mlock.misc.IOHelper;
+import me.xurround.mlock.interfaces.PreferencesLoader;
 import me.xurround.mlock.model.Preferences;
 
 import java.io.IOException;
@@ -9,9 +9,12 @@ public class DataManager
 {
     private Preferences preferences;
 
-    public DataManager()
+    private final PreferencesLoader preferencesLoader;
+
+    public DataManager(PreferencesLoader preferencesLoader)
     {
         preferences = Preferences.getDefault();
+        this.preferencesLoader = preferencesLoader;
         loadPreferences();
     }
 
@@ -19,7 +22,7 @@ public class DataManager
     {
         try
         {
-            preferences = IOHelper.readPreferences();
+            preferences = preferencesLoader.load();
         }
         catch (IOException | ClassNotFoundException e)
         {
@@ -31,7 +34,7 @@ public class DataManager
     {
         try
         {
-            IOHelper.writePreferences(preferences);
+            preferencesLoader.save(preferences);
         }
         catch (IOException e)
         {

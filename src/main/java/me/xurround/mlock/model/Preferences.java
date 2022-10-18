@@ -3,35 +3,69 @@ package me.xurround.mlock.model;
 import me.xurround.mlock.misc.enums.Language;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Preferences implements Serializable
 {
-    private boolean firstRun;
+    private String currentProfileName;
 
-    private Profile currentProfile;
+    private List<Profile> profiles;
+
+    private Language language;
 
     private Preferences() { }
 
     public boolean isFirstRun()
     {
-        return firstRun;
+        return currentProfileName.equals(Profile.getDefault().getProfileName());
     }
 
     public Profile getCurrentProfile()
     {
-        return currentProfile;
+        for (Profile profile : profiles)
+            if (profile.getProfileName().equals(currentProfileName))
+                return profile;
+        return null;
     }
 
-    public void setCurrentProfile(Profile currentProfile)
+    public void setCurrentProfile(String currentProfileName)
     {
-        this.currentProfile = currentProfile;
+        this.currentProfileName = currentProfileName;
+    }
+
+    public void addProfile(Profile profile)
+    {
+        profiles.add(profile);
+    }
+
+    public List<Profile> getProfiles()
+    {
+        return profiles;
+    }
+
+    public Language getLanguage()
+    {
+        return language;
+    }
+
+    public void setLanguage(Language language)
+    {
+        this.language = language;
+    }
+
+    public void setProfiles(List<Profile> profiles)
+    {
+        this.profiles = profiles;
     }
 
     public static Preferences getDefault()
     {
         Preferences preferences = new Preferences();
-        preferences.currentProfile = new Profile("Default", "default", Language.EN);
-        preferences.firstRun = true;
+        preferences.currentProfileName = Profile.getDefault().getProfileName();
+        preferences.profiles = new ArrayList<>();
+        preferences.profiles.add(Profile.getDefault());
+        preferences.language = Language.EN;
         return preferences;
     }
 }

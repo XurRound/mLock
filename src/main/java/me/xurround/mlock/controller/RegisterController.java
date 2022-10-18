@@ -5,13 +5,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.DirectoryChooser;
 import me.xurround.mlock.App;
 import me.xurround.mlock.misc.IOHelper;
 import me.xurround.mlock.misc.enums.AppScene;
 import me.xurround.mlock.misc.enums.TransitionType;
+import me.xurround.mlock.model.Preferences;
+import me.xurround.mlock.model.Profile;
 
+import java.io.File;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class RegisterController implements Initializable
 {
@@ -38,9 +42,21 @@ public class RegisterController implements Initializable
     {
         storagePathTF.setText(IOHelper.getWorkingDirectoryPath().toString());
 
+        changeStoragePathBtn.setOnMouseClicked(e ->
+        {
+            DirectoryChooser dirChooser = new DirectoryChooser();
+            File selectedDir = dirChooser.showDialog(storagePathTF.getScene().getWindow());
+            storagePathTF.setText(selectedDir.getAbsolutePath());
+        });
+
+        Preferences preferences = App.getInstance().getDataManager().getPreferences();
+
         registerProfileBtn.setOnMouseClicked(mouseEvent ->
         {
-            App.getInstance().getSceneManager().setLayout(AppScene.MAIN, TransitionType.SLIDE_RIGHT);
+            Profile profile = new Profile(profileNameTF.getText(), storagePathTF.getText());
+            App.getInstance().getDataManager().getPreferences().getProfiles().add(profile);
+            preferences.setCurrentProfile(profile.getProfileName());
+            App.getInstance().getSceneManager().setLayout(AppScene.PROFILE_SELECT, TransitionType.SLIDE_RIGHT);
         });
     }
 }

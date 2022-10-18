@@ -49,6 +49,7 @@
                                prefWidth="210"
                                fx:id="storagePathTF"/>
                     <Button text="..."
+                            focusTraversable="false"
                             fx:id="changeStoragePathBtn"/>
                 </HBox>
             </HBox>
