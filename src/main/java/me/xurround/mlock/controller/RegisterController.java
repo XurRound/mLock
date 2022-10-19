@@ -51,12 +51,17 @@ public class RegisterController implements Initializable
 
         Preferences preferences = App.getInstance().getDataManager().getPreferences();
 
-        registerProfileBtn.setOnMouseClicked(mouseEvent ->
+        registerProfileBtn.setOnAction(e ->
         {
+            if (profileNameTF.getText().isEmpty() ||
+                storagePathTF.getText().isEmpty() ||
+                !masterPasswordPF.getText().equals(confirmPasswordPF.getText()) ||
+                masterPasswordPF.getText().isEmpty())
+                return;
             Profile profile = new Profile(profileNameTF.getText(), storagePathTF.getText());
             App.getInstance().getDataManager().getPreferences().getProfiles().add(profile);
             preferences.setCurrentProfile(profile.getProfileName());
-            App.getInstance().getSceneManager().setLayout(AppScene.PROFILE_SELECT, TransitionType.SLIDE_RIGHT);
+            App.getInstance().getSceneManager().setLayout(AppScene.LOGIN, TransitionType.SLIDE_RIGHT);
         });
     }
 }

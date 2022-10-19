@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="me.xurround.mlock.controller.AccountAddController"
+           prefWidth="800.0"
+           prefHeight="500.0"
+           stylesheets="@../style/main.css"
+           styleClass="background,imgBackground">
+
+    <HBox styleClass="innerBox"
+          prefWidth="500"
+          prefHeight="300"
+          maxWidth="500"
+          maxHeight="300"
+          alignment="CENTER">
+
+        <VBox alignment="CENTER"
+              prefWidth="500"
+              prefHeight="300"
+              styleClass="registerContent">
+
+            <Label alignment="TOP_CENTER"
+                   text="Add new account"
+                   style="-fx-font-size: 24;"/>
+
+            <HBox styleClass="hintedField">
+                <Label text="Service name"/>
+                <TextField alignment="CENTER"
+                           promptText="Service name"
+                           prefWidth="240"
+                           fx:id="serviceNameTF"/>
+            </HBox>
+
+            <HBox styleClass="hintedField">
+                <Label text="Username"/>
+                <TextField alignment="CENTER"
+                           promptText="Username"
+                           prefWidth="240"
+                           fx:id="usernameTF"/>
+            </HBox>
+
+            <HBox styleClass="hintedField">
+                <Label text="Password"/>
+                <HBox styleClass="dirChooserView">
+                    <VBox>
+                        <TextField alignment="CENTER"
+                                   prefWidth="240"
+                                   promptText="Password"
+                                   fx:id="passwordTF"/>
+
+                        <CheckBox text="Show password"
+                                  fx:id="showPasswordCB"
+                                  focusTraversable="false"
+                                  style="-fx-padding: 7 0 0 0;"/>
+                    </VBox>
+                </HBox>
+
+            </HBox>
+
+            <HBox styleClass="hintedField">
+                <Label text="Registration date"/>
+                <HBox styleClass="dirChooserView">
+                    <DatePicker promptText="Registration date"
+                                prefWidth="240"
+                                fx:id="regDateDP"/>
+                </HBox>
+            </HBox>
+
+            <Button text="Add account"
+                    prefWidth="150"
+                    fx:id="accountAddBT"/>
+        </VBox>
+
+    </HBox>
+
+</StackPane>

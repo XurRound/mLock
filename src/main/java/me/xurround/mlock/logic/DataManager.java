@@ -1,6 +1,7 @@
 package me.xurround.mlock.logic;
 
 import me.xurround.mlock.interfaces.PreferencesLoader;
+import me.xurround.mlock.model.PasswordStorage;
 import me.xurround.mlock.model.Preferences;
 
 import java.io.IOException;
@@ -9,6 +10,8 @@ public class DataManager
 {
     private Preferences preferences;
 
+    private PasswordStorage passwordStorage;
+
     private final PreferencesLoader preferencesLoader;
 
     public DataManager(PreferencesLoader preferencesLoader)
@@ -16,9 +19,20 @@ public class DataManager
         preferences = Preferences.getDefault();
         this.preferencesLoader = preferencesLoader;
         loadPreferences();
+        loadPasswordStorage();
     }
 
-    public void loadPreferences()
+    private void loadPasswordStorage()
+    {
+        passwordStorage = new PasswordStorage();
+    }
+
+    public PasswordStorage getPasswordStorage()
+    {
+        return passwordStorage;
+    }
+
+    private void loadPreferences()
     {
         try
         {
@@ -26,7 +40,7 @@ public class DataManager
         }
         catch (IOException | ClassNotFoundException e)
         {
-            e.printStackTrace();
+            System.out.println("Error loading preferences: " + e.getMessage());
         }
     }
 

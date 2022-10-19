@@ -10,6 +10,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import me.xurround.mlock.App;
+import me.xurround.mlock.interfaces.listeners.OnProfileSelectListener;
+import me.xurround.mlock.model.Profile;
 
 import java.io.IOException;
 
@@ -24,7 +26,9 @@ public class ProfileCard extends HBox
     @FXML
     private Label profileNameLB;
 
-    public ProfileCard(String profileName)
+    private OnProfileSelectListener onProfileSelectListener;
+
+    public ProfileCard(Profile profile)
     {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/me/xurround/mlock/layout/components/profile_card.fxml"));
         fxmlLoader.setRoot(this);
@@ -59,7 +63,18 @@ public class ProfileCard extends HBox
             }
         });
 
-        profileNameLB.setText(profileName);
-        avatarLB.setText(profileName.substring(0, 1).toUpperCase());
+        profileNameLB.setText(profile.getProfileName());
+        avatarLB.setText(profile.getProfileName().substring(0, 1).toUpperCase());
+
+        setOnMouseClicked(e ->
+        {
+            if (onProfileSelectListener != null)
+                onProfileSelectListener.onSelect(profile);
+        });
+    }
+
+    public void setOnProfileSelectListener(OnProfileSelectListener onProfileSelectListener)
+    {
+        this.onProfileSelectListener = onProfileSelectListener;
     }
 }

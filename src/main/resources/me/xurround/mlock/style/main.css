@@ -173,3 +173,23 @@ Hyperlink:armed {
 .hoverFill:hover {
     -fx-background-color: #303348;
 }
+
+.date-picker > .text-field  {
+    -fx-alignment: center;
+}
+
+CheckBox {
+    -fx-text-fill: #FFF;
+}
+
+.menuLabel {
+    -fx-background-color: transparent;
+    -fx-text-fill: #000;
+    -fx-font-size: 14;
+}
+
+.date-picker Label {
+    -fx-background-color: transparent;
+    -fx-text-fill: #000;
+    -fx-font-size: 14;
+}

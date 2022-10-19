@@ -4,14 +4,14 @@ import javafx.beans.property.*;
 
 import java.util.Date;
 
-public class ServiceField
+public class AccountRecord
 {
     private final StringProperty serviceName;
     private final StringProperty serviceUsername;
     private final StringProperty servicePassword;
     private final LongProperty serviceRegistrationDate;
 
-    public ServiceField(String serviceName, String username, String password, Date date)
+    public AccountRecord(String serviceName, String username, String password, Date date)
     {
         this.serviceName = new SimpleStringProperty(serviceName);
         this.serviceUsername = new SimpleStringProperty(username);

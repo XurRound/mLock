@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.input.MouseEvent;
 import me.xurround.mlock.App;
+import me.xurround.mlock.interfaces.listeners.OnProfileSelectListener;
 import me.xurround.mlock.layout.components.ProfileCard;
 import me.xurround.mlock.misc.enums.AppScene;
 import me.xurround.mlock.misc.enums.TransitionType;
@@ -40,9 +41,9 @@ public class ProfileSelectController implements Initializable
         {
             if (profile.equals(Profile.getDefault()))
                 continue;
-            ProfileCard card = new ProfileCard(profile.getProfileName());
+            ProfileCard card = new ProfileCard(profile);
             profilesContainer.add(card, col, row);
-            card.setOnMouseClicked(profileSelectionHandler);
+            card.setOnProfileSelectListener(profileSelectionListener);
             col++;
             if (col > 2)
             {
@@ -52,12 +53,9 @@ public class ProfileSelectController implements Initializable
         }
     }
 
-    private final EventHandler<MouseEvent> profileSelectionHandler = new EventHandler<>()
+    private final OnProfileSelectListener profileSelectionListener = (profile ->
     {
-        @Override
-        public void handle(MouseEvent mouseEvent)
-        {
-            System.out.println("123");
-        }
-    };
+        App.getInstance().getDataManager().getPreferences().setCurrentProfile(profile.getProfileName());
+        App.getInstance().getSceneManager().setLayout(AppScene.LOGIN, TransitionType.SLIDE_RIGHT);
+    });
 }

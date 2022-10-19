@@ -40,7 +40,7 @@
                         </StackPane>
                         <VBox alignment="CENTER_LEFT"
                               styleClass="profileLogo">
-                            <Label fx:id="profileName"
+                            <Label fx:id="profileNameLB"
                                    text="XurRound"/>
                             <Hyperlink fx:id="changeProfileHL"
                                        text="Change profile..."/>
