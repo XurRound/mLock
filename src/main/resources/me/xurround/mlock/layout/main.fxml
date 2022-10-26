@@ -33,6 +33,13 @@
                        text="Edit"/>
             </graphic>
         </Menu>
+        <Menu>
+            <graphic>
+                <Label fx:id="settingsBT"
+                       styleClass="menuLabel"
+                       text="Settings"/>
+            </graphic>
+        </Menu>
     </MenuBar>
 
     <TableView fx:id="pmTable"

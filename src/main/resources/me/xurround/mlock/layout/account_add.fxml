@@ -74,9 +74,16 @@
                 </HBox>
             </HBox>
 
-            <Button text="Add account"
-                    prefWidth="150"
-                    fx:id="accountAddBT"/>
+            <HBox spacing="10"
+                  alignment="CENTER"
+                  style="-fx-padding: 10 0 0 0;">
+                <Button text="Add account"
+                        prefWidth="150"
+                        fx:id="accountAddBT"/>
+                <Button text="Cancel"
+                        prefWidth="150"
+                        fx:id="cancelBT"/>
+            </HBox>
         </VBox>
 
     </HBox>

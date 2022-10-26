@@ -1,24 +1,32 @@
 package me.xurround.mlock.controller;
 
+import javafx.beans.property.*;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import me.xurround.mlock.App;
+import me.xurround.mlock.layout.components.ExpandableTableRow;
 import me.xurround.mlock.misc.enums.AppScene;
 import me.xurround.mlock.misc.enums.TransitionType;
 import me.xurround.mlock.model.AccountRecord;
-import javafx.scene.control.cell.PropertyValueFactory;
+import me.xurround.mlock.model.ServiceRecord;
 
 import java.net.URL;
-import java.util.Date;
+import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 
 public class MainController implements Initializable
 {
     @FXML
-    private TableView<AccountRecord> pmTable;
+    private TableView<ServiceRecord> pmTable;
 
     @FXML
     private Label addBT;
@@ -29,38 +37,47 @@ public class MainController implements Initializable
     @FXML
     private Label editBT;
 
+    @FXML
+    private Label settingsBT;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        TableColumn<AccountRecord, String> serviceNameColumn = new TableColumn<>("Service");
+        addBT.setOnMouseClicked(e ->
+        {
+            App.getInstance().getSceneManager().setLayout(AppScene.ACCOUNT_ADD, TransitionType.SLIDE_LEFT);
+        });
+
+        settingsBT.setOnMouseClicked(e ->
+        {
+            App.getInstance().getSceneManager().setLayout(AppScene.SETTINGS, TransitionType.SLIDE_RIGHT);
+        });
+
+        pmTable.setRowFactory(itemTableView -> new ExpandableTableRow());
+
+        pmTable.getItems().addAll();
+
+        TableColumn<ServiceRecord, String> serviceNameColumn = new TableColumn<>("Service");
+        serviceNameColumn.setResizable(false);
+        serviceNameColumn.setReorderable(false);
         serviceNameColumn.prefWidthProperty().bind(pmTable.widthProperty().multiply(0.25));
         serviceNameColumn.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
-        TableColumn<AccountRecord, String> serviceUsernameColumn = new TableColumn<>("Username");
+        TableColumn<ServiceRecord, String> serviceUsernameColumn = new TableColumn<>("Username");
+        serviceUsernameColumn.setResizable(false);
+        serviceUsernameColumn.setReorderable(false);
         serviceUsernameColumn.prefWidthProperty().bind(pmTable.widthProperty().multiply(0.25));
-        serviceUsernameColumn.setCellValueFactory(new PropertyValueFactory<>("serviceUsername"));
-        TableColumn<AccountRecord, String> servicePasswordColumn = new TableColumn<>("Password");
+        TableColumn<ServiceRecord, String> servicePasswordColumn = new TableColumn<>("Password");
+        servicePasswordColumn.setResizable(false);
+        servicePasswordColumn.setReorderable(false);
         servicePasswordColumn.prefWidthProperty().bind(pmTable.widthProperty().multiply(0.25));
-        servicePasswordColumn.setCellValueFactory(new PropertyValueFactory<>("servicePassword"));
-        TableColumn<AccountRecord, Integer> serviceRegistrationDateColumn = new TableColumn<>("Registration Date");
+        TableColumn<ServiceRecord, Integer> serviceRegistrationDateColumn = new TableColumn<>("Registration Date");
+        serviceRegistrationDateColumn.setResizable(false);
+        serviceRegistrationDateColumn.setReorderable(false);
         serviceRegistrationDateColumn.prefWidthProperty().bind(pmTable.widthProperty().multiply(0.25).subtract(2));
-        serviceRegistrationDateColumn.setCellValueFactory(new PropertyValueFactory<>("serviceRegistrationDate"));
 
         pmTable.getColumns().addAll(serviceNameColumn, serviceUsernameColumn, servicePasswordColumn, serviceRegistrationDateColumn);
 
-        ObservableList<AccountRecord> services = FXCollections.observableArrayList(
-                new AccountRecord("YouTube", "qwegbsf", "adgasfg", new Date()),
-                new AccountRecord("Twitter", "qwegbsfDsag", "adgasfg", new Date()),
-                new AccountRecord("Facebook", "123gagra", "adgasfg", new Date())
-        );
-
-        pmTable.getSelectionModel().setCellSelectionEnabled(true);
-
         pmTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        pmTable.setItems(services);
-
-        addBT.setOnMouseClicked(e ->
-        {
-            App.getInstance().getSceneManager().setLayout(AppScene.ACCOUNT_ADD, TransitionType.FADE);
-        });
+        pmTable.setItems(App.getInstance().getDataManager().getPasswordStorage().getRecords());
     }
 }

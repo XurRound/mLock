@@ -2,5 +2,5 @@ package me.xurround.mlock.misc.enums;
 
 public enum AppScene
 {
-    LOGIN, REGISTER, SPLASH, MAIN, PROFILE_SELECT, ACCOUNT_ADD
+    LOGIN, REGISTER, SPLASH, MAIN, PROFILE_SELECT, ACCOUNT_ADD, SETTINGS
 }

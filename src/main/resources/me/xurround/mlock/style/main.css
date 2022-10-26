@@ -18,7 +18,7 @@
 }
 
 Label {
-    -fx-background-color: #313335;
+    -fx-background-color: transparent;
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 16;
     -fx-font-family: 'Whitney Medium';
@@ -95,7 +95,8 @@ TextField {
 }
 
 .table-view .column-header-background {
-    -fx-background-color: linear-gradient(#1E1E1E 0%, #313335 100%);
+    -fx-background-color: #362F4B;
+    -fx-padding: 10;
 }
 
 .table-view .column-header-background .label {
@@ -108,17 +109,18 @@ TextField {
 }
 
 .table-view .table-cell {
-    -fx-text-fill: white;
+    -fx-text-fill: #000000;
+    -fx-padding: 5;
 }
 
 .table-row-cell {
-    -fx-background-color: #313335;
+    -fx-background-color: #FFFFFF;
     -fx-background-insets: 0, 0 0 0 0;
     -fx-padding: 0.0;
 }
 
 .table-row-cell:odd {
-    -fx-background-color: #424242;
+    -fx-background-color: #F6F6F6;
     -fx-background-insets: 0, 0 0 0 0;
     -fx-padding: 0.0;
 }
@@ -126,7 +128,12 @@ TextField {
 .table-row-cell:selected {
     -fx-background-color: #246FC6;
     -fx-background-insets: 0;
-    -fx-background-radius: 10;
+}
+
+.noHeader .column-header-background {
+    -fx-max-height: 0;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
 }
 
 Hyperlink {

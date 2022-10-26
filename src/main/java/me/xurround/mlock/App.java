@@ -4,6 +4,7 @@ import javafx.stage.Stage;
 import javafx.application.Application;
 import me.xurround.mlock.layout.SceneManager;
 import me.xurround.mlock.logic.DataManager;
+import me.xurround.mlock.logic.crypto.loader.ClearTextPasswordLoader;
 import me.xurround.mlock.logic.prefs.BinaryPreferencesLoader;
 import me.xurround.mlock.logic.prefs.JSONPreferencesLoader;
 import me.xurround.mlock.misc.enums.AppScene;
@@ -28,7 +29,7 @@ public class App extends Application
     public void start(Stage stage)
     {
         System.setProperty("prism.lcdtext", "false");
-        dataManager = new DataManager(new BinaryPreferencesLoader());
+        dataManager = new DataManager(new BinaryPreferencesLoader(), new ClearTextPasswordLoader());
         localizationManager = new LocalizationManager();
         localizationManager.setLanguage(getDataManager().getPreferences().getLanguage());
         sceneManager = new SceneManager(stage, 800, 500);

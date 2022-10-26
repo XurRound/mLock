@@ -2,36 +2,20 @@ package me.xurround.mlock.model;
 
 import javafx.beans.property.*;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class AccountRecord
 {
-    private final StringProperty serviceName;
     private final StringProperty serviceUsername;
     private final StringProperty servicePassword;
-    private final LongProperty serviceRegistrationDate;
+    private final StringProperty serviceRegistrationDate;
 
-    public AccountRecord(String serviceName, String username, String password, Date date)
+    public AccountRecord(String username, String password, LocalDate date)
     {
-        this.serviceName = new SimpleStringProperty(serviceName);
         this.serviceUsername = new SimpleStringProperty(username);
         this.servicePassword = new SimpleStringProperty(password);
-        this.serviceRegistrationDate = new SimpleLongProperty(date.getTime());
-    }
-
-    public String getServiceName()
-    {
-        return serviceName.get();
-    }
-
-    public StringProperty serviceNameProperty()
-    {
-        return serviceName;
-    }
-
-    public void setServiceName(String serviceName)
-    {
-        this.serviceName.set(serviceName);
+        this.serviceRegistrationDate = new SimpleStringProperty(date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
     }
 
     public String getServiceUsername()
@@ -64,18 +48,18 @@ public class AccountRecord
         this.servicePassword.set(servicePassword);
     }
 
-    public long getServiceRegistrationDate()
+    public LocalDate getServiceRegistrationDate()
     {
-        return serviceRegistrationDate.get();
+        return LocalDate.parse(serviceRegistrationDate.get());
     }
 
-    public LongProperty serviceRegistrationDateProperty()
+    public StringProperty serviceRegistrationDateProperty()
     {
         return serviceRegistrationDate;
     }
 
-    public void setServiceRegistrationDate(long serviceRegistrationDate)
+    public void setServiceRegistrationDate(LocalDate serviceRegistrationDate)
     {
-        this.serviceRegistrationDate.set(serviceRegistrationDate);
+        this.serviceRegistrationDate.set(serviceRegistrationDate.toString());
     }
 }

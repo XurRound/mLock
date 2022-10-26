@@ -1,6 +1,7 @@
 package me.xurround.mlock.logic;
 
-import me.xurround.mlock.interfaces.PreferencesLoader;
+import me.xurround.mlock.interfaces.IPasswordStorageLoader;
+import me.xurround.mlock.interfaces.IPreferencesLoader;
 import me.xurround.mlock.model.PasswordStorage;
 import me.xurround.mlock.model.Preferences;
 
@@ -12,19 +13,22 @@ public class DataManager
 
     private PasswordStorage passwordStorage;
 
-    private final PreferencesLoader preferencesLoader;
+    private final IPreferencesLoader preferencesLoader;
 
-    public DataManager(PreferencesLoader preferencesLoader)
+    private final IPasswordStorageLoader passwordStorageLoader;
+
+    public DataManager(IPreferencesLoader preferencesLoader, IPasswordStorageLoader passwordStorageLoader)
     {
         preferences = Preferences.getDefault();
         this.preferencesLoader = preferencesLoader;
+        this.passwordStorageLoader = passwordStorageLoader;
         loadPreferences();
         loadPasswordStorage();
     }
 
     private void loadPasswordStorage()
     {
-        passwordStorage = new PasswordStorage();
+        passwordStorage = passwordStorageLoader.load();
     }
 
     public PasswordStorage getPasswordStorage()

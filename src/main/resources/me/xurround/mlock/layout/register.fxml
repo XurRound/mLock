@@ -70,9 +70,16 @@
                                fx:id="confirmPasswordPF"/>
             </HBox>
 
-            <Button text="Register profile"
-                    prefWidth="150"
-                    fx:id="registerProfileBtn"/>
+            <HBox spacing="10"
+                  alignment="CENTER"
+                  style="-fx-padding: 10 0 0 0;">
+                <Button text="Register profile"
+                        prefWidth="150"
+                        fx:id="registerProfileBtn"/>
+                <Button text="Cancel"
+                        prefWidth="150"
+                        fx:id="cancelBT"/>
+            </HBox>
         </VBox>
 
     </HBox>

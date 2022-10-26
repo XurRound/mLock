@@ -5,7 +5,7 @@ import me.xurround.mlock.model.Preferences;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public interface PreferencesLoader
+public interface IPreferencesLoader
 {
     Preferences load() throws IOException, ClassNotFoundException;
     void save(Preferences preferences) throws IOException;

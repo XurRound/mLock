@@ -11,7 +11,7 @@ public class LocalizationManager
 
     public LocalizationManager()
     {
-        setLanguage(Language.EN); // Default
+        setLanguage(Language.EN);
     }
 
     public void setLanguage(Language language)

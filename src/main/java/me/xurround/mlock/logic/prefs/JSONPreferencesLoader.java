@@ -1,13 +1,13 @@
 package me.xurround.mlock.logic.prefs;
 
 import com.google.gson.Gson;
-import me.xurround.mlock.interfaces.PreferencesLoader;
+import me.xurround.mlock.interfaces.IPreferencesLoader;
 import me.xurround.mlock.misc.IOHelper;
 import me.xurround.mlock.model.Preferences;
 
 import java.io.*;
 
-public class JSONPreferencesLoader implements PreferencesLoader
+public class JSONPreferencesLoader implements IPreferencesLoader
 {
     @Override
     public Preferences load() throws IOException, ClassNotFoundException

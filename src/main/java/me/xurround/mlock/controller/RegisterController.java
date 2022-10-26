@@ -37,6 +37,9 @@ public class RegisterController implements Initializable
     @FXML
     private Button registerProfileBtn;
 
+    @FXML
+    private Button cancelBT;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
@@ -62,6 +65,12 @@ public class RegisterController implements Initializable
             App.getInstance().getDataManager().getPreferences().getProfiles().add(profile);
             preferences.setCurrentProfile(profile.getProfileName());
             App.getInstance().getSceneManager().setLayout(AppScene.LOGIN, TransitionType.SLIDE_RIGHT);
+        });
+
+        cancelBT.setDisable(App.getInstance().getDataManager().getPreferences().getCurrentProfile().equals(Profile.getDefault()));
+        cancelBT.setOnMouseClicked(e ->
+        {
+            App.getInstance().getSceneManager().setLayout(AppScene.PROFILE_SELECT, TransitionType.SLIDE_RIGHT);
         });
     }
 }

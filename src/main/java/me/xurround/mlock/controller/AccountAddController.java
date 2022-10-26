@@ -8,6 +8,7 @@ import me.xurround.mlock.App;
 import me.xurround.mlock.misc.enums.AppScene;
 import me.xurround.mlock.misc.enums.TransitionType;
 import me.xurround.mlock.misc.skin.PasswordTextField;
+import me.xurround.mlock.model.AccountRecord;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -34,6 +35,9 @@ public class AccountAddController implements Initializable
     @FXML
     private Button accountAddBT;
 
+    @FXML
+    private Button cancelBT;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
@@ -53,7 +57,11 @@ public class AccountAddController implements Initializable
                 passwordTF.getText().isEmpty() ||
                 regDateDP.getValue() == null)
                 return;
+            App.getInstance().getDataManager().getPasswordStorage().addAccount(
+                serviceNameTF.getText(), usernameTF.getText(), passwordTF.getText(), regDateDP.getValue());
             App.getInstance().getSceneManager().setLayout(AppScene.MAIN, TransitionType.FADE);
         });
+        cancelBT.setOnAction(evt ->
+                App.getInstance().getSceneManager().setLayout(AppScene.MAIN, TransitionType.SLIDE_LEFT));
     }
 }
