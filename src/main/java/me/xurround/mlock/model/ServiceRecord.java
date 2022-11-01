@@ -20,6 +20,13 @@ public final class ServiceRecord
         passwordKey = RandomHelper.generatePasswordKey();
     }
 
+    public ServiceRecord(String serviceName, byte[] passwordKey)
+    {
+        this.serviceName = serviceName;
+        this.accounts = new ArrayList<>();
+        this.passwordKey = passwordKey;
+    }
+
     public ServiceRecord(String serviceName)
     {
         this(serviceName, new ArrayList<>());

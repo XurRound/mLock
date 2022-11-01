@@ -15,6 +15,7 @@ import me.xurround.mlock.model.Profile;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.*;
 
 public class RegisterController implements Initializable
@@ -49,10 +50,16 @@ public class RegisterController implements Initializable
         {
             DirectoryChooser dirChooser = new DirectoryChooser();
             File selectedDir = dirChooser.showDialog(storagePathTF.getScene().getWindow());
-            storagePathTF.setText(selectedDir.getAbsolutePath());
+            if (selectedDir != null)
+                storagePathTF.setText(selectedDir.getAbsolutePath());
         });
 
         Preferences preferences = App.getInstance().getDataManager().getPreferences();
+
+        profileNameTF.textProperty().addListener((obs, oldValue, newValue) ->
+        {
+            storagePathTF.setText(Path.of(IOHelper.getWorkingDirectoryPath().toString(), newValue.toLowerCase()).toString());
+        });
 
         registerProfileBtn.setOnAction(e ->
         {

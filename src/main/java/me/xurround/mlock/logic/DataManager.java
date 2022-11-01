@@ -23,12 +23,16 @@ public class DataManager
         this.preferencesLoader = preferencesLoader;
         this.passwordStorageLoader = passwordStorageLoader;
         loadPreferences();
-        loadPasswordStorage();
     }
 
-    private void loadPasswordStorage()
+    public void loadPasswordStorage(String masterPassword)
     {
-        passwordStorage = passwordStorageLoader.load();
+        passwordStorage = passwordStorageLoader.load(masterPassword);
+    }
+
+    public void savePasswordStorage()
+    {
+        passwordStorageLoader.save(passwordStorage);
     }
 
     public PasswordStorage getPasswordStorage()

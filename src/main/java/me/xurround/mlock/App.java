@@ -6,7 +6,6 @@ import me.xurround.mlock.layout.SceneManager;
 import me.xurround.mlock.logic.DataManager;
 import me.xurround.mlock.logic.crypto.loader.ClearTextPasswordLoader;
 import me.xurround.mlock.logic.prefs.BinaryPreferencesLoader;
-import me.xurround.mlock.logic.prefs.JSONPreferencesLoader;
 import me.xurround.mlock.misc.enums.AppScene;
 import me.xurround.mlock.settings.LocalizationManager;
 
@@ -42,6 +41,7 @@ public class App extends Application
         stage.setOnCloseRequest(e ->
         {
             dataManager.savePreferences();
+            dataManager.savePasswordStorage();
         });
         stage.show();
     }

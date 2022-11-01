@@ -1,27 +1,17 @@
 package me.xurround.mlock.controller;
 
-import javafx.beans.property.*;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import me.xurround.mlock.App;
 import me.xurround.mlock.layout.components.ExpandableTableRow;
 import me.xurround.mlock.misc.enums.AppScene;
 import me.xurround.mlock.misc.enums.TransitionType;
-import me.xurround.mlock.model.AccountRecord;
 import me.xurround.mlock.model.ServiceRecord;
 
 import java.net.URL;
-import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.function.Function;
 
 public class MainController implements Initializable
 {
@@ -76,6 +66,8 @@ public class MainController implements Initializable
         serviceRegistrationDateColumn.prefWidthProperty().bind(pmTable.widthProperty().multiply(0.25).subtract(2));
 
         pmTable.getColumns().addAll(serviceNameColumn, serviceUsernameColumn, servicePasswordColumn, serviceRegistrationDateColumn);
+
+        pmTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         pmTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         pmTable.setItems(App.getInstance().getDataManager().getPasswordStorage().getRecords());

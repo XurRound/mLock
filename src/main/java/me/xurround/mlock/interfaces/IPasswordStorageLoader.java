@@ -4,5 +4,6 @@ import me.xurround.mlock.model.PasswordStorage;
 
 public interface IPasswordStorageLoader
 {
-    PasswordStorage load();
+    PasswordStorage load(String masterPassword);
+    void save(PasswordStorage storage);
 }

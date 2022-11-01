@@ -2,26 +2,17 @@ package me.xurround.mlock.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import me.xurround.mlock.logic.crypto.Cipherer;
 
 import java.time.LocalDate;
 
 public class PasswordStorage
 {
-    private final ObservableList<ServiceRecord> services;
+    private transient final ObservableList<ServiceRecord> services;
 
     public PasswordStorage()
     {
-        services = FXCollections.observableArrayList(
-            new ServiceRecord("YouTube"),
-            new ServiceRecord("Twitter"),
-            new ServiceRecord("Amazon"),
-            new ServiceRecord("LinkedIn")
-        );
-        services.get(0).getAccounts().add(new AccountRecord("GAnterAT", "yY7F2Nb78%66", LocalDate.now()));
-        services.get(0).getAccounts().add(new AccountRecord("hASTARoU", "4TK0kNg0L!ym", LocalDate.now()));
-        services.get(0).getAccounts().add(new AccountRecord("iStERmlO", "m55VQF6&rLR6", LocalDate.now()));
-        services.get(1).getAccounts().add(new AccountRecord("hotANtIG", "SuDOLR82P6!$", LocalDate.now()));
-        services.get(1).getAccounts().add(new AccountRecord("ENbaBIST", "u4p7Dp536@$#", LocalDate.now()));
+        services = FXCollections.observableArrayList();
     }
 
     public ObservableList<ServiceRecord> getRecords()
@@ -31,15 +22,18 @@ public class PasswordStorage
 
     public void addAccount(String serviceName, String username, String password, LocalDate registrationDate)
     {
-        AccountRecord newAccount = new AccountRecord(username, password, registrationDate);
-        for (ServiceRecord record : services)
+        for (ServiceRecord existingService : services)
         {
-            if (record.getServiceName().equals(serviceName))
+            if (existingService.getServiceName().equals(serviceName))
             {
-                record.getAccounts().add(newAccount);
+                existingService.getAccounts().add(
+                    new AccountRecord(username, Cipherer.encryptPassword(password, existingService.getPasswordKey()), registrationDate));
                 return;
             }
         }
-        services.add(new ServiceRecord(serviceName, newAccount));
+        ServiceRecord newService = new ServiceRecord(serviceName);
+        newService.getAccounts().add(
+            new AccountRecord(username, Cipherer.encryptPassword(password, newService.getPasswordKey()), registrationDate));
+        services.add(newService);
     }
 }

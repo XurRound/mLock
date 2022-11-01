@@ -7,59 +7,59 @@ import java.time.format.DateTimeFormatter;
 
 public class AccountRecord
 {
-    private final StringProperty serviceUsername;
-    private final StringProperty servicePassword;
-    private final StringProperty serviceRegistrationDate;
+    private final StringProperty username;
+    private final StringProperty password;
+    private final StringProperty registrationDate;
 
     public AccountRecord(String username, String password, LocalDate date)
     {
-        this.serviceUsername = new SimpleStringProperty(username);
-        this.servicePassword = new SimpleStringProperty(password);
-        this.serviceRegistrationDate = new SimpleStringProperty(date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        this.username = new SimpleStringProperty(username);
+        this.password = new SimpleStringProperty(password);
+        this.registrationDate = new SimpleStringProperty(date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
     }
 
-    public String getServiceUsername()
+    public String getUsername()
     {
-        return serviceUsername.get();
+        return username.get();
     }
 
-    public StringProperty serviceUsernameProperty()
+    public StringProperty usernameProperty()
     {
-        return serviceUsername;
+        return username;
     }
 
-    public void setServiceUsername(String serviceUsername)
+    public void setUsername(String username)
     {
-        this.serviceUsername.set(serviceUsername);
+        this.username.set(username);
     }
 
-    public String getServicePassword()
+    public String getPassword()
     {
-        return servicePassword.get();
+        return password.get();
     }
 
-    public StringProperty servicePasswordProperty()
+    public StringProperty passwordProperty()
     {
-        return servicePassword;
+        return password;
     }
 
-    public void setServicePassword(String servicePassword)
+    public void setPassword(String password)
     {
-        this.servicePassword.set(servicePassword);
+        this.password.set(password);
     }
 
-    public LocalDate getServiceRegistrationDate()
+    public String getRegistrationDate()
     {
-        return LocalDate.parse(serviceRegistrationDate.get());
+        return registrationDate.get();
     }
 
-    public StringProperty serviceRegistrationDateProperty()
+    public StringProperty registrationDateProperty()
     {
-        return serviceRegistrationDate;
+        return registrationDate;
     }
 
-    public void setServiceRegistrationDate(LocalDate serviceRegistrationDate)
+    public void setRegistrationDate(String registrationDate)
     {
-        this.serviceRegistrationDate.set(serviceRegistrationDate.toString());
+        this.registrationDate.set(registrationDate);
     }
 }

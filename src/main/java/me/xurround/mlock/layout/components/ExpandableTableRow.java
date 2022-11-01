@@ -1,10 +1,10 @@
 package me.xurround.mlock.layout.components;
 
+import javafx.scene.control.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
 import javafx.collections.FXCollections;
 import javafx.beans.property.ObjectProperty;
 import me.xurround.mlock.model.AccountRecord;
@@ -60,13 +60,13 @@ public class ExpandableTableRow extends TableRow<ServiceRecord>
         serviceNameColumn.prefWidthProperty().bind(acTable.widthProperty().multiply(0.25));
         TableColumn<AccountRecord, String> serviceUsernameColumn = new TableColumn<>("Username");
         serviceUsernameColumn.prefWidthProperty().bind(acTable.widthProperty().multiply(0.25));
-        serviceUsernameColumn.setCellValueFactory(new PropertyValueFactory<>("serviceUsername"));
+        serviceUsernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         TableColumn<AccountRecord, String> servicePasswordColumn = new TableColumn<>("Password");
         servicePasswordColumn.prefWidthProperty().bind(acTable.widthProperty().multiply(0.25));
-        servicePasswordColumn.setCellValueFactory(new PropertyValueFactory<>("servicePassword"));
+        servicePasswordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
         TableColumn<AccountRecord, Integer> serviceRegistrationDateColumn = new TableColumn<>("Registration Date");
         serviceRegistrationDateColumn.prefWidthProperty().bind(acTable.widthProperty().multiply(0.25).subtract(4));
-        serviceRegistrationDateColumn.setCellValueFactory(new PropertyValueFactory<>("serviceRegistrationDate"));
+        serviceRegistrationDateColumn.setCellValueFactory(new PropertyValueFactory<>("registrationDate"));
 
         acTable.getColumns().addAll(serviceNameColumn, serviceUsernameColumn, servicePasswordColumn, serviceRegistrationDateColumn);
 
@@ -82,9 +82,29 @@ public class ExpandableTableRow extends TableRow<ServiceRecord>
                 if (newItem.getAccounts().size() == 0)
                     detailsPane.setVisible(false);
                 acTable.setItems(FXCollections.observableList(newItem.getAccounts()));
-                detailsPane.setPrefHeight(newItem.getAccounts().size() * 30);
+                detailsPane.setPrefHeight(newItem.getAccounts().size() * 30 + 1);
             }
         });
+
+        //Allow copying
+
+        MenuItem copyItem = new MenuItem("Copy");
+        copyItem.setOnAction(e ->
+        {
+            TablePosition position = acTable.getSelectionModel().getSelectedCells().get(0);
+            if (position != null)
+            {
+                final ClipboardContent content = new ClipboardContent();
+                int r = position.getRow();
+                int c = position.getColumn();
+                String cellData = (String)acTable.getColumns().get(c).getCellData(r);
+                content.putString(cellData);
+                Clipboard.getSystemClipboard().setContent(content);
+            }
+        });
+        ContextMenu contextMenu = new ContextMenu();
+        contextMenu.getItems().add(copyItem);
+        acTable.setContextMenu(contextMenu);
 
         return detailsPane;
     }
