@@ -7,7 +7,6 @@ import me.xurround.mlock.model.PasswordStorage;
 import me.xurround.mlock.model.ServiceRecord;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
@@ -31,24 +30,23 @@ public class ClearTextPasswordLoader implements IPasswordStorageLoader
             for (String entry : entries)
             {
                 String[] data = entry.split(Pattern.quote("|"));
+                AccountRecord account = new AccountRecord(
+                    data[1], data[2],
+                    Integer.parseInt(data[3]),
+                    LocalDate.parse(data[4], DateTimeFormatter.ofPattern("dd.MM.yyyy")),
+                    Base64.getDecoder().decode(data[5]));
                 boolean added = false;
                 for (ServiceRecord existingService : storage.getRecords())
                 {
                     if (existingService.getServiceName().equals(data[0]))
                     {
-                        existingService.getAccounts().add(new AccountRecord(data[1],
-                            new String(Base64.getDecoder().decode(data[2]), StandardCharsets.UTF_8), LocalDate.parse(data[3], DateTimeFormatter.ofPattern("dd.MM.yyyy"))));
+                        existingService.getAccounts().add(account);
                         added = true;
                         break;
                     }
                 }
                 if (!added)
-                {
-                    ServiceRecord service = new ServiceRecord(data[0], Base64.getDecoder().decode(data[4]));
-                    service.getAccounts().add(new AccountRecord(data[1],
-                        new String(Base64.getDecoder().decode(data[2]), StandardCharsets.UTF_8), LocalDate.parse(data[3], DateTimeFormatter.ofPattern("dd.MM.yyyy"))));
-                    storage.getRecords().add(service);
-                }
+                    storage.getRecords().add(new ServiceRecord(data[0], account));
             }
         }
         catch (IOException e)
@@ -71,6 +69,7 @@ public class ClearTextPasswordLoader implements IPasswordStorageLoader
             File storagePath = Path.of(userDataDir, "pStoragePlain.dat").toFile();
             if (!storagePath.getParentFile().exists())
                 storagePath.getParentFile().mkdir();
+
             fos = new FileWriter(storagePath);
             for (ServiceRecord entry : storage.getRecords())
             {
@@ -78,9 +77,10 @@ public class ClearTextPasswordLoader implements IPasswordStorageLoader
                 {
                     fos.write(entry.getServiceName() + "|" +
                         account.getUsername() + "|" +
-                        Base64.getEncoder().encodeToString(account.getPassword().getBytes(StandardCharsets.UTF_8)) + "|" +
+                        account.getPassword() + "|" +
+                        account.getPasswordLength() + "|" +
                         account.getRegistrationDate() + "|" +
-                        Base64.getEncoder().encodeToString(entry.getPasswordKey()) + "\n");
+                        Base64.getEncoder().encodeToString(account.getPasswordKey()) + "\n");
                 }
             }
             fos.close();

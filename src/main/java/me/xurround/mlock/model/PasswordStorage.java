@@ -2,7 +2,6 @@ package me.xurround.mlock.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import me.xurround.mlock.logic.crypto.Cipherer;
 
 import java.time.LocalDate;
 
@@ -22,18 +21,15 @@ public class PasswordStorage
 
     public void addAccount(String serviceName, String username, String password, LocalDate registrationDate)
     {
+        AccountRecord account = new AccountRecord(username, password, registrationDate);
         for (ServiceRecord existingService : services)
         {
             if (existingService.getServiceName().equals(serviceName))
             {
-                existingService.getAccounts().add(
-                    new AccountRecord(username, Cipherer.encryptPassword(password, existingService.getPasswordKey()), registrationDate));
+                existingService.getAccounts().add(account);
                 return;
             }
         }
-        ServiceRecord newService = new ServiceRecord(serviceName);
-        newService.getAccounts().add(
-            new AccountRecord(username, Cipherer.encryptPassword(password, newService.getPasswordKey()), registrationDate));
-        services.add(newService);
+        services.add(new ServiceRecord(serviceName, account));
     }
 }

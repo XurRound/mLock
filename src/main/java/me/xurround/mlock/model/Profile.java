@@ -1,7 +1,5 @@
 package me.xurround.mlock.model;
 
-import me.xurround.mlock.misc.enums.Language;
-
 import java.io.Serializable;
 import java.util.Objects;
 

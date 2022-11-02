@@ -20,4 +20,14 @@ public class Cipherer
             passwordBytes[i] = (byte)(passwordBytes[i] ^ key[i % key.length]);
         return new String(passwordBytes, StandardCharsets.UTF_8);
     }
+
+    public static int encryptPasswordLength(int passwordLength, byte[] key)
+    {
+        return passwordLength ^ (key[0] * key[1]);
+    }
+
+    public static int decryptPasswordLength(int passwordLength, byte[] key)
+    {
+        return passwordLength ^ (key[0] * key[1]);
+    }
 }

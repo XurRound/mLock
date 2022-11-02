@@ -1,5 +1,6 @@
 package me.xurround.mlock.layout.components;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
@@ -63,7 +64,8 @@ public class ExpandableTableRow extends TableRow<ServiceRecord>
         serviceUsernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         TableColumn<AccountRecord, String> servicePasswordColumn = new TableColumn<>("Password");
         servicePasswordColumn.prefWidthProperty().bind(acTable.widthProperty().multiply(0.25));
-        servicePasswordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
+        servicePasswordColumn.setCellValueFactory(dataFeatures ->
+            new SimpleStringProperty("\u2022".repeat(dataFeatures.getValue().getClearPasswordLength())));
         TableColumn<AccountRecord, Integer> serviceRegistrationDateColumn = new TableColumn<>("Registration Date");
         serviceRegistrationDateColumn.prefWidthProperty().bind(acTable.widthProperty().multiply(0.25).subtract(4));
         serviceRegistrationDateColumn.setCellValueFactory(new PropertyValueFactory<>("registrationDate"));
@@ -88,17 +90,14 @@ public class ExpandableTableRow extends TableRow<ServiceRecord>
 
         //Allow copying
 
-        MenuItem copyItem = new MenuItem("Copy");
+        MenuItem copyItem = new MenuItem("Copy password");
         copyItem.setOnAction(e ->
         {
-            TablePosition position = acTable.getSelectionModel().getSelectedCells().get(0);
-            if (position != null)
+            AccountRecord account = acTable.getSelectionModel().getSelectedItem();
+            if (account != null)
             {
-                final ClipboardContent content = new ClipboardContent();
-                int r = position.getRow();
-                int c = position.getColumn();
-                String cellData = (String)acTable.getColumns().get(c).getCellData(r);
-                content.putString(cellData);
+                ClipboardContent content = new ClipboardContent();
+                content.putString(account.getClearPassword());
                 Clipboard.getSystemClipboard().setContent(content);
             }
         });
