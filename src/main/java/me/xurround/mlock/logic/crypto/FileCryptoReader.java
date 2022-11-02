@@ -3,22 +3,35 @@ package me.xurround.mlock.logic.crypto;
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 public class FileCryptoReader
 {
-    private final FileInputStream fileInputStream;
-    private final BufferedReader cryptoReader;
+    private FileInputStream fileInputStream;
+    private BufferedReader cryptoReader;
 
-    public FileCryptoReader(String path, String password) throws NoSuchPaddingException, NoSuchAlgorithmException, IOException, InvalidKeyException
+    private final Cipher cipher;
+
+    private final String path;
+
+    public FileCryptoReader(String path, String password, String initVector) throws NoSuchPaddingException, NoSuchAlgorithmException, IOException, InvalidKeyException, InvalidAlgorithmParameterException
+    {
+        this.path = path;
+        cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        while (password.length() < 16)
+            password = password.repeat(2);
+        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(password.substring(0, 16).getBytes(StandardCharsets.UTF_8), "AES"), new IvParameterSpec(initVector.getBytes(StandardCharsets.UTF_8)));
+    }
+
+    public void open() throws FileNotFoundException
     {
         this.fileInputStream = new FileInputStream(path);
-        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(password.getBytes(StandardCharsets.UTF_8), "AES/CBC/PKCS5Padding"));
         this.cryptoReader = new BufferedReader(new InputStreamReader(new CipherInputStream(fileInputStream, cipher)));
     }
 
@@ -29,14 +42,16 @@ public class FileCryptoReader
         return data;
     }
 
-    private String decryptLine() throws IOException
+    public String decryptLine() throws IOException
     {
         return cryptoReader.readLine();
     }
 
-    private void close() throws IOException
+    public void close() throws IOException
     {
-        cryptoReader.close();
-        fileInputStream.close();
+        if (cryptoReader != null)
+            cryptoReader.close();
+        if (fileInputStream != null)
+            fileInputStream.close();
     }
 }

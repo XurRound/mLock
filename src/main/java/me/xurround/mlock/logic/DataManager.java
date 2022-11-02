@@ -2,6 +2,7 @@ package me.xurround.mlock.logic;
 
 import me.xurround.mlock.interfaces.IPasswordStorageLoader;
 import me.xurround.mlock.interfaces.IPreferencesLoader;
+import me.xurround.mlock.misc.exception.InvalidPasswordException;
 import me.xurround.mlock.model.PasswordStorage;
 import me.xurround.mlock.model.Preferences;
 
@@ -25,9 +26,17 @@ public class DataManager
         loadPreferences();
     }
 
-    public void loadPasswordStorage(String masterPassword)
+    public boolean loadPasswordStorage(String masterPassword)
     {
-        passwordStorage = passwordStorageLoader.load(masterPassword);
+        try
+        {
+            passwordStorage = passwordStorageLoader.load(masterPassword);
+            return true;
+        }
+        catch (InvalidPasswordException e)
+        {
+            return false;
+        }
     }
 
     public void savePasswordStorage()

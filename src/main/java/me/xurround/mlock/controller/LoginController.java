@@ -52,9 +52,16 @@ public class LoginController implements Initializable
         {
             if (passwordPF.getText().isEmpty())
                 return;
-            //TODO: try to decrypt data storage, if ok -> login user
-            App.getInstance().getDataManager().loadPasswordStorage(passwordPF.getText());
-            App.getInstance().getSceneManager().setLayout(AppScene.MAIN, TransitionType.SLIDE_RIGHT);
+            if (App.getInstance().getDataManager().loadPasswordStorage(passwordPF.getText()))
+                App.getInstance().getSceneManager().setLayout(AppScene.MAIN, TransitionType.SLIDE_RIGHT);
+            else
+            {
+                Alert invalidPasswordAlert = new Alert(Alert.AlertType.ERROR);
+                invalidPasswordAlert.setTitle("Invalid password");
+                invalidPasswordAlert.setHeaderText("Invalid password");
+                invalidPasswordAlert.setContentText("Couldn't decrypt data with given password!");
+                invalidPasswordAlert.show();
+            }
         });
 
         forgotPasswordHL.setOnMouseClicked(e ->
