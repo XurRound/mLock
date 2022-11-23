@@ -9,7 +9,6 @@ import me.xurround.mlock.model.AccountRecord;
 import me.xurround.mlock.model.PasswordStorage;
 import me.xurround.mlock.model.ServiceRecord;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.NoSuchPaddingException;
 import java.io.File;
 import java.io.IOException;
@@ -36,8 +35,8 @@ public class CryptoPasswordLoader implements IPasswordStorageLoader
         dataPath = Path.of(App.getInstance().getDataManager().getPreferences().getCurrentProfile().getDataDir(), "pStorage.dat");
         try
         {
-            cryptoReader = new FileCryptoReader(dataPath.toString(), masterPassword, "0123456789AbCdEf");
-            cryptoWriter = new FileCryptoWriter(dataPath.toString(), masterPassword, "0123456789AbCdEf");
+            cryptoReader = new FileCryptoReader(dataPath.toString(), masterPassword);
+            cryptoWriter = new FileCryptoWriter(dataPath.toString(), masterPassword);
             cryptoReader.open();
             String dataLine = cryptoReader.decryptLine();
             while (dataLine != null && !dataLine.equals(""))
@@ -63,9 +62,9 @@ public class CryptoPasswordLoader implements IPasswordStorageLoader
                 dataLine = cryptoReader.decryptLine();
             }
         }
-        catch (IOException | NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | InvalidAlgorithmParameterException e)
+        catch (IOException | ArrayIndexOutOfBoundsException | NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException | InvalidAlgorithmParameterException e)
         {
-            if (e.getMessage().contains("BadPaddingException"))
+            if (e.getMessage().contains("BadPaddingException") || e.getMessage().contains("out of bounds for length"))
                 throw new InvalidPasswordException();
             System.out.println("Failed to load password storage: " + e.getMessage());
         }

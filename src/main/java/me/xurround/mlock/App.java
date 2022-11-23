@@ -1,14 +1,16 @@
 package me.xurround.mlock;
 
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import me.xurround.mlock.layout.SceneManager;
 import me.xurround.mlock.logic.DataManager;
-import me.xurround.mlock.logic.crypto.loader.ClearTextPasswordLoader;
 import me.xurround.mlock.logic.crypto.loader.CryptoPasswordLoader;
 import me.xurround.mlock.logic.prefs.BinaryPreferencesLoader;
 import me.xurround.mlock.misc.enums.AppScene;
 import me.xurround.mlock.settings.LocalizationManager;
+
+import java.util.Objects;
 
 public class App extends Application
 {
@@ -38,6 +40,7 @@ public class App extends Application
         else
             sceneManager.setLayout(AppScene.LOGIN);
         stage.setTitle(getLocalizationManager().getLocalizedString("title_pass_manager"));
+        stage.getIcons().add(new Image(Objects.requireNonNull(App.class.getResourceAsStream("img/icon.png"))));
         stage.setResizable(false);
         stage.setOnCloseRequest(e ->
         {

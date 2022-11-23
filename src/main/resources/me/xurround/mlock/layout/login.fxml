@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -28,7 +25,7 @@
               styleClass="spaced15">
 
             <Label alignment="TOP_CENTER"
-                   text="Welcome!"
+                   text="%welcome"
                    style="-fx-font-size: 24;"/>
 
             <HBox alignment="CENTER">
@@ -36,14 +33,13 @@
                     <HBox styleClass="avatarBackground">
                         <StackPane styleClass="avatar">
                             <Circle fx:id="avatarCL" radius="50"/>
-                            <Label fx:id="avatarLB" alignment="CENTER" text="X"/>
+                            <Label fx:id="avatarLB" alignment="CENTER"/>
                         </StackPane>
                         <VBox alignment="CENTER_LEFT"
                               styleClass="profileLogo">
-                            <Label fx:id="profileNameLB"
-                                   text="XurRound"/>
+                            <Label fx:id="profileNameLB" />
                             <Hyperlink fx:id="changeProfileHL"
-                                       text="Change profile..."/>
+                                       text="%change_profile"/>
                         </VBox>
                     </HBox>
                 </AnchorPane>
@@ -55,16 +51,16 @@
 
             <PasswordField fx:id="passwordPF"
                            alignment="CENTER"
-                           promptText="Your super-secure password"/>
+                           promptText="%super_secure_password"/>
 
             <VBox alignment="CENTER" spacing="5">
 
                 <Button fx:id="loginBtn"
-                        text="Log In"
+                        text="%log_in"
                         minWidth="150"/>
 
                 <Hyperlink fx:id="forgotPasswordHL"
-                           text="Forgot password?" />
+                           text="%forgot_password_link" />
 
             </VBox>
 

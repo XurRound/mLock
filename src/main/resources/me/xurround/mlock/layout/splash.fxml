@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -27,14 +24,13 @@
               styleClass="spaced15">
 
             <Label alignment="TOP_CENTER"
-                   text="Welcome!"
+                   text="%welcome"
                    style="-fx-font-size: 24;"/>
-            <Label fx:id="splashText"
+            <Label text="%splash_text"
                    wrapText="true"
                    textAlignment="CENTER"/>
 
-            <Button text="Register profile"
-                    prefWidth="150"
+            <Button text="%register_profile"
                     fx:id="registerBtn"/>
         </VBox>
 

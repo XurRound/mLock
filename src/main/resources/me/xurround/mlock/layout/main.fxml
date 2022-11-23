@@ -16,28 +16,28 @@
             <graphic>
                 <Label fx:id="addBT"
                        styleClass="menuLabel"
-                       text="Add"/>
+                       text="%add"/>
             </graphic>
         </Menu>
         <Menu>
             <graphic>
                 <Label fx:id="removeBT"
                        styleClass="menuLabel"
-                       text="Remove"/>
+                       text="%remove"/>
             </graphic>
         </Menu>
         <Menu>
             <graphic>
                 <Label fx:id="editBT"
                        styleClass="menuLabel"
-                       text="Edit"/>
+                       text="%edit"/>
             </graphic>
         </Menu>
         <Menu>
             <graphic>
                 <Label fx:id="settingsBT"
                        styleClass="menuLabel"
-                       text="Settings"/>
+                       text="%settings"/>
             </graphic>
         </Menu>
     </MenuBar>

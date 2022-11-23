@@ -1,6 +1,8 @@
 package me.xurround.mlock.model;
 
+import me.xurround.mlock.App;
 import me.xurround.mlock.misc.enums.Language;
+import me.xurround.mlock.settings.LocalizationManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -52,6 +54,7 @@ public class Preferences implements Serializable
     public void setLanguage(Language language)
     {
         this.language = language;
+        App.getInstance().getLocalizationManager().setLanguage(language);
     }
 
     public void setProfiles(List<Profile> profiles)

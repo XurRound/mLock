@@ -10,7 +10,7 @@
 
     <HBox alignment="CENTER">
         <AnchorPane>
-            <HBox styleClass="avatarBackground,hoverFill,armedFill"
+            <HBox styleClass="avatarBackground,hoverFill"
                   prefWidth="180"
                   maxWidth="180">
                 <StackPane styleClass="avatar">

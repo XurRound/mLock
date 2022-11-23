@@ -10,6 +10,7 @@ public class LayoutLoader
     public static <T> T load(String name) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/me/xurround/mlock/layout/" + name + ".fxml"));
+        fxmlLoader.setResources(App.getInstance().getLocalizationManager().getLocaleBundle());
         return fxmlLoader.load();
     }
 }

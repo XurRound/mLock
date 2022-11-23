@@ -20,13 +20,15 @@ public class FileCryptoWriter
 
     private final String path;
 
-    public FileCryptoWriter(String path, String password, String initVector) throws NoSuchPaddingException, NoSuchAlgorithmException, FileNotFoundException, InvalidKeyException, InvalidAlgorithmParameterException
+    public FileCryptoWriter(String path, String password) throws NoSuchPaddingException, NoSuchAlgorithmException, FileNotFoundException, InvalidKeyException, InvalidAlgorithmParameterException
     {
         this.path = path;
         cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-        while (password.length() < 16)
-            password = password.repeat(2);
-        cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(password.substring(0, 16).getBytes(StandardCharsets.UTF_8), "AES"), new IvParameterSpec(initVector.getBytes(StandardCharsets.UTF_8)));
+        cipher.init(
+            Cipher.ENCRYPT_MODE,
+            new SecretKeySpec(Cipherer.passwordToKey(password), "AES"),
+            new IvParameterSpec(Cipherer.passwordToIV(password))
+        );
     }
 
     public void open() throws FileNotFoundException

@@ -22,10 +22,10 @@
         <VBox alignment="CENTER"
               style="-fx-padding: 0 0 6 0;">
             <Label alignment="TOP_CENTER"
-                   text="Select profile"
+                   text="%profile_select"
                    style="-fx-font-size: 24;"/>
             <Label alignment="TOP_CENTER"
-                   text="or create a new one"
+                   text="%or_create_new"
                    style="-fx-font-size: 16;"/>
         </VBox>
 
@@ -45,7 +45,7 @@
 
         </ScrollPane>
 
-        <Button fx:id="registerBT" alignment="CENTER" text="Create profile"/>
+        <Button fx:id="registerBT" alignment="CENTER" text="%create_profile"/>
 
     </VBox>
 

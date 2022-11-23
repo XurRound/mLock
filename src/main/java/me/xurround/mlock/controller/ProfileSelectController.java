@@ -1,12 +1,9 @@
 package me.xurround.mlock.controller;
 
-import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import javafx.scene.input.MouseEvent;
 import me.xurround.mlock.App;
 import me.xurround.mlock.interfaces.listeners.OnProfileSelectListener;
 import me.xurround.mlock.layout.components.ProfileCard;

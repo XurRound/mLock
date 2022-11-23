@@ -4,10 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import me.xurround.mlock.App;
 import javafx.fxml.Initializable;
-import javafx.scene.shape.Circle;
+import me.xurround.mlock.misc.NotifyHelper;
 import me.xurround.mlock.misc.enums.AppScene;
 import me.xurround.mlock.misc.enums.TransitionType;
 import me.xurround.mlock.model.Profile;
+import me.xurround.mlock.settings.LocalizationManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,9 +28,6 @@ public class LoginController implements Initializable
     private Hyperlink forgotPasswordHL;
 
     @FXML
-    private Circle avatarCL;
-
-    @FXML
     private Label avatarLB;
 
     @FXML
@@ -41,7 +39,9 @@ public class LoginController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        loginText.setText(App.getInstance().getLocalizationManager().getLocalizedString("login_text"));
+        LocalizationManager localizationManager = App.getInstance().getLocalizationManager();
+
+        loginText.setText(localizationManager.getLocalizedString("login_text"));
 
         Profile currentProfile = App.getInstance().getDataManager().getPreferences().getCurrentProfile();
 
@@ -56,22 +56,24 @@ public class LoginController implements Initializable
                 App.getInstance().getSceneManager().setLayout(AppScene.MAIN, TransitionType.SLIDE_RIGHT);
             else
             {
-                Alert invalidPasswordAlert = new Alert(Alert.AlertType.ERROR);
-                invalidPasswordAlert.setTitle("Invalid password");
-                invalidPasswordAlert.setHeaderText("Invalid password");
-                invalidPasswordAlert.setContentText("Couldn't decrypt data with given password!");
-                invalidPasswordAlert.show();
+                NotifyHelper.notifyAlert(
+                    Alert.AlertType.ERROR,
+                    localizationManager.getLocalizedString("invalid_password"),
+                    localizationManager.getLocalizedString("invalid_password"),
+                    localizationManager.getLocalizedString("invalid_password_text")
+                );
             }
         });
 
         forgotPasswordHL.setOnMouseClicked(e ->
         {
             forgotPasswordHL.setVisited(false);
-            Alert forgotPasswordAlert = new Alert(Alert.AlertType.INFORMATION);
-            forgotPasswordAlert.setTitle("Forgotten password");
-            forgotPasswordAlert.setHeaderText("Bad news");
-            forgotPasswordAlert.setContentText("There is no ability to restore a forgotten password now. We're working hard to add this feature. :)");
-            forgotPasswordAlert.show();
+            NotifyHelper.notifyAlert(
+                Alert.AlertType.ERROR,
+                localizationManager.getLocalizedString("forgotten_password"),
+                localizationManager.getLocalizedString("bad_news"),
+                localizationManager.getLocalizedString("forgotten_password_text")
+            );
         });
         changeProfileHL.setOnMouseClicked(e ->
         {

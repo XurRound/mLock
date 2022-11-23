@@ -68,7 +68,7 @@
             <HBox styleClass="hintedField">
                 <Label text="Registration date"/>
                 <HBox styleClass="dirChooserView">
-                    <DatePicker promptText="Registration date"
+                    <DatePicker promptText="%registration_date"
                                 prefWidth="240"
                                 fx:id="regDateDP"/>
                 </HBox>
@@ -80,7 +80,7 @@
                 <Button text="Add account"
                         prefWidth="150"
                         fx:id="accountAddBT"/>
-                <Button text="Cancel"
+                <Button text="%cancel"
                         prefWidth="150"
                         fx:id="cancelBT"/>
             </HBox>

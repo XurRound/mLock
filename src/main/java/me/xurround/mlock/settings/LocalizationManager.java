@@ -26,6 +26,11 @@ public class LocalizationManager
         return defaultValue;
     }
 
+    public ResourceBundle getLocaleBundle()
+    {
+        return localeBundle;
+    }
+
     public String getLocalizedString(String key)
     {
         return getLocalizedString(key, "");

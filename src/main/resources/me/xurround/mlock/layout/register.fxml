@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -27,23 +24,23 @@
               styleClass="registerContent">
 
             <Label alignment="TOP_CENTER"
-                   text="Register profile"
+                   text="%register_profile"
                    style="-fx-font-size: 24;"/>
 
             <Label alignment="TOP_CENTER"
-                   text="Just a few questions..."
+                   text="%register_profile_subheader"
                    style="-fx-font-size: 16;"/>
 
             <HBox styleClass="hintedField">
-                <Label text="Profile name"/>
+                <Label text="%profile_name"/>
                 <TextField alignment="CENTER"
-                           promptText="Profile name"
+                           promptText="%profile_name"
                            prefWidth="240"
                            fx:id="profileNameTF"/>
             </HBox>
 
             <HBox styleClass="hintedField">
-                <Label text="Profile storage path"/>
+                <Label text="%profile_storage_path"/>
                 <HBox styleClass="dirChooserView">
                     <TextField alignment="CENTER"
                                prefWidth="210"
@@ -55,17 +52,17 @@
             </HBox>
 
             <HBox styleClass="hintedField">
-                <Label text="Master password"/>
+                <Label text="%master_password"/>
                 <PasswordField alignment="CENTER"
-                               promptText="Master password"
+                               promptText="%master_password"
                                prefWidth="240"
                                fx:id="masterPasswordPF"/>
             </HBox>
 
             <HBox styleClass="hintedField">
-                <Label text="Confirm password"/>
+                <Label text="%confirm_password"/>
                 <PasswordField alignment="CENTER"
-                               promptText="Confirm password"
+                               promptText="%confirm_password"
                                prefWidth="240"
                                fx:id="confirmPasswordPF"/>
             </HBox>
@@ -73,11 +70,9 @@
             <HBox spacing="10"
                   alignment="CENTER"
                   style="-fx-padding: 10 0 0 0;">
-                <Button text="Register profile"
-                        prefWidth="150"
+                <Button text="%register_profile_btn"
                         fx:id="registerProfileBtn"/>
-                <Button text="Cancel"
-                        prefWidth="150"
+                <Button text="%cancel"
                         fx:id="cancelBT"/>
             </HBox>
         </VBox>

@@ -8,11 +8,9 @@ import me.xurround.mlock.App;
 import me.xurround.mlock.misc.enums.AppScene;
 import me.xurround.mlock.misc.enums.TransitionType;
 import me.xurround.mlock.misc.skin.PasswordTextField;
-import me.xurround.mlock.model.AccountRecord;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class AccountAddController implements Initializable
