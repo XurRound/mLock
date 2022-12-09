@@ -1,16 +1,23 @@
 package me.xurround.mlock.controller;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import me.xurround.mlock.App;
 import javafx.fxml.Initializable;
 import me.xurround.mlock.misc.NotifyHelper;
 import me.xurround.mlock.misc.enums.AppScene;
+import me.xurround.mlock.misc.enums.AuthState;
 import me.xurround.mlock.misc.enums.TransitionType;
 import me.xurround.mlock.model.Profile;
 import me.xurround.mlock.settings.LocalizationManager;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable
@@ -20,6 +27,9 @@ public class LoginController implements Initializable
 
     @FXML
     private Button loginBtn;
+
+    @FXML
+    private Button settingsBtn;
 
     @FXML
     private PasswordField passwordPF;
@@ -48,21 +58,40 @@ public class LoginController implements Initializable
         profileNameLB.setText(currentProfile.getProfileName());
         avatarLB.setText(currentProfile.getProfileName().substring(0, 1).toUpperCase());
 
-        loginBtn.setOnAction(e ->
+        EventHandler<ActionEvent> onLoginEvent = (actionEvent ->
         {
-            if (passwordPF.getText().isEmpty())
-                return;
-            if (App.getInstance().getDataManager().loadPasswordStorage(passwordPF.getText()))
-                App.getInstance().getSceneManager().setLayout(AppScene.MAIN, TransitionType.SLIDE_RIGHT);
-            else
+            AuthState authState = App.getInstance().getProfileManager().authorize(App.getInstance().getDataManager().getPreferences().getCurrentProfile(), passwordPF.getText());
+            switch (authState)
             {
-                NotifyHelper.notifyAlert(
-                    Alert.AlertType.ERROR,
-                    localizationManager.getLocalizedString("invalid_password"),
-                    localizationManager.getLocalizedString("invalid_password"),
-                    localizationManager.getLocalizedString("invalid_password_text")
-                );
+                case OK:
+                    App.getInstance().getSceneManager().setLayout(AppScene.MAIN, TransitionType.SLIDE_RIGHT);
+                    break;
+                case INVALID_PASSWORD:
+                    NotifyHelper.notifyAlert(
+                        Alert.AlertType.ERROR,
+                        localizationManager.getLocalizedString("invalid_password"),
+                        localizationManager.getLocalizedString("invalid_password"),
+                        localizationManager.getLocalizedString("invalid_password_text")
+                    );
+                    break;
             }
+        });
+
+        ImageView cogView = new ImageView(new Image(Objects.requireNonNull(App.class.getResourceAsStream("img/cog.png"))));
+        cogView.setFitHeight(16);
+        cogView.setFitWidth(16);
+        settingsBtn.setGraphic(cogView);
+
+        settingsBtn.setOnMouseClicked(e ->
+        {
+            App.getInstance().getSceneManager().setLayout(AppScene.SETTINGS, TransitionType.SLIDE_RIGHT);
+        });
+
+        loginBtn.setOnAction(onLoginEvent);
+        passwordPF.setOnKeyPressed(e ->
+        {
+            if (e.getCode() == KeyCode.ENTER)
+                onLoginEvent.handle(null);
         });
 
         forgotPasswordHL.setOnMouseClicked(e ->

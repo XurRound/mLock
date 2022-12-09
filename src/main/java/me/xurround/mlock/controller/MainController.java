@@ -20,16 +20,13 @@ public class MainController implements Initializable
     private TableView<ServiceRecord> pmTable;
 
     @FXML
+    private TextField searchTF;
+
+    @FXML
     private Label addBT;
 
     @FXML
-    private Label removeBT;
-
-    @FXML
-    private Label editBT;
-
-    @FXML
-    private Label settingsBT;
+    private Label logoutBT;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
@@ -41,31 +38,46 @@ public class MainController implements Initializable
             App.getInstance().getSceneManager().setLayout(AppScene.ACCOUNT_ADD, TransitionType.SLIDE_LEFT);
         });
 
-        settingsBT.setOnMouseClicked(e ->
+        logoutBT.setOnMouseClicked(e ->
         {
-            App.getInstance().getSceneManager().setLayout(AppScene.SETTINGS, TransitionType.SLIDE_RIGHT);
+            App.getInstance().getProfileManager().logout();
+            App.getInstance().getSceneManager().setLayout(AppScene.LOGIN, TransitionType.SLIDE_RIGHT);
+        });
+
+        searchTF.textProperty().addListener((observable, oldValue, newValue) ->
+        {
+            pmTable.getSelectionModel().clearSelection();
+            if (newValue.isBlank())
+                return;
+            pmTable.getItems().stream().filter(item -> item.getServiceName().toLowerCase().contains(newValue.toLowerCase())).findAny().ifPresent(item ->
+            {
+                pmTable.getSelectionModel().select(item);
+                pmTable.scrollTo(item);
+            });
         });
 
         pmTable.setRowFactory(itemTableView -> new ExpandableTableRow());
 
-        pmTable.getItems().addAll();
-
         TableColumn<ServiceRecord, String> serviceNameColumn = new TableColumn<>(localizationManager.getLocalizedString("service"));
         serviceNameColumn.setResizable(false);
         serviceNameColumn.setReorderable(false);
+        serviceNameColumn.setSortable(false);
         serviceNameColumn.prefWidthProperty().bind(pmTable.widthProperty().multiply(0.25));
         serviceNameColumn.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
         TableColumn<ServiceRecord, String> serviceUsernameColumn = new TableColumn<>(localizationManager.getLocalizedString("username"));
         serviceUsernameColumn.setResizable(false);
         serviceUsernameColumn.setReorderable(false);
+        serviceUsernameColumn.setSortable(false);
         serviceUsernameColumn.prefWidthProperty().bind(pmTable.widthProperty().multiply(0.25));
         TableColumn<ServiceRecord, String> servicePasswordColumn = new TableColumn<>(localizationManager.getLocalizedString("password"));
         servicePasswordColumn.setResizable(false);
         servicePasswordColumn.setReorderable(false);
+        servicePasswordColumn.setSortable(false);
         servicePasswordColumn.prefWidthProperty().bind(pmTable.widthProperty().multiply(0.25));
         TableColumn<ServiceRecord, Integer> serviceRegistrationDateColumn = new TableColumn<>(localizationManager.getLocalizedString("registration_date"));
         serviceRegistrationDateColumn.setResizable(false);
         serviceRegistrationDateColumn.setReorderable(false);
+        serviceRegistrationDateColumn.setSortable(false);
         serviceRegistrationDateColumn.prefWidthProperty().bind(pmTable.widthProperty().multiply(0.25).subtract(2));
 
         pmTable.getColumns().addAll(serviceNameColumn, serviceUsernameColumn, servicePasswordColumn, serviceRegistrationDateColumn);

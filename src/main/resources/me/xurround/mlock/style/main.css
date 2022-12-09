@@ -200,3 +200,30 @@ CheckBox {
     -fx-text-fill: #000;
     -fx-font-size: 14;
 }
+
+.context-menu .scroll-arrow {
+    -fx-padding: 0 0 0 0;
+    -fx-max-height: 0;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-button,
+.table-view *.scroll-bar:horizontal *.decrement-button {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-arrow,
+.table-view *.scroll-bar:horizontal *.decrement-arrow {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
+
+.searchField:focused {
+    -fx-background-color: -fx-body-color, #FFF;
+    -fx-background-insets: 0, 1, 2;
+}

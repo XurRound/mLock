@@ -11,38 +11,38 @@
       stylesheets="@../style/main.css"
       styleClass="background">
 
-    <MenuBar VBox.vgrow="ALWAYS">
-        <Menu>
-            <graphic>
-                <Label fx:id="addBT"
-                       styleClass="menuLabel"
-                       text="%add"/>
-            </graphic>
-        </Menu>
-        <Menu>
-            <graphic>
-                <Label fx:id="removeBT"
-                       styleClass="menuLabel"
-                       text="%remove"/>
-            </graphic>
-        </Menu>
-        <Menu>
-            <graphic>
-                <Label fx:id="editBT"
-                       styleClass="menuLabel"
-                       text="%edit"/>
-            </graphic>
-        </Menu>
-        <Menu>
-            <graphic>
-                <Label fx:id="settingsBT"
-                       styleClass="menuLabel"
-                       text="%settings"/>
-            </graphic>
-        </Menu>
-    </MenuBar>
+    <HBox>
+        <MenuBar VBox.vgrow="ALWAYS">
+            <Menu>
+                <graphic>
+                    <Label fx:id="addBT"
+                           styleClass="menuLabel"
+                           text="%add"/>
+                </graphic>
+            </Menu>
+        </MenuBar>
+        <Region styleClass="menu-bar"
+                HBox.hgrow="ALWAYS"/>
+        <MenuBar>
+            <Menu>
+                <graphic>
+                    <Label fx:id="logoutBT"
+                           styleClass="menuLabel"
+                           text="%log_out"/>
+                </graphic>
+            </Menu>
+        </MenuBar>
+    </HBox>
 
     <TableView fx:id="pmTable"
                VBox.vgrow="ALWAYS"/>
+
+    <HBox style="-fx-padding: 5; -fx-background-color: #FFF;">
+        <TextField fx:id="searchTF"
+                   alignment="CENTER"
+                   HBox.hgrow="ALWAYS"
+                   promptText="%search_by_service"
+                   styleClass="searchField"/>
+    </HBox>
 
 </VBox>

@@ -1,5 +1,7 @@
 package me.xurround.mlock.logic.crypto;
 
+import me.xurround.mlock.misc.HexUtils;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -51,5 +53,12 @@ public class Cipherer
         MessageDigest md = MessageDigest.getInstance("MD5");
         md.update(password.getBytes());
         return md.digest();
+    }
+
+    public static String passwordToHexHash(String password) throws NoSuchAlgorithmException
+    {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        md.update(password.getBytes());
+        return HexUtils.bytesToHex(md.digest());
     }
 }

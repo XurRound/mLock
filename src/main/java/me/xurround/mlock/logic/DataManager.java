@@ -42,6 +42,7 @@ public class DataManager
     public void savePasswordStorage()
     {
         passwordStorageLoader.save(passwordStorage);
+        passwordStorage = null;
     }
 
     public PasswordStorage getPasswordStorage()

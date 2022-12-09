@@ -32,4 +32,21 @@ public class PasswordStorage
         }
         services.add(new ServiceRecord(serviceName, account));
     }
+
+    public void removeAccount(AccountRecord recordToRemove)
+    {
+        for (ServiceRecord service : services)
+        {
+            for (AccountRecord record : service.getAccounts())
+            {
+                if (record.equals(recordToRemove))
+                {
+                    service.getAccounts().remove(recordToRemove);
+                    if (service.getAccounts().size() <= 0)
+                        services.remove(service);
+                    return;
+                }
+            }
+        }
+    }
 }

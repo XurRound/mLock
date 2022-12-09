@@ -5,6 +5,7 @@ import me.xurround.mlock.interfaces.IPasswordStorageLoader;
 import me.xurround.mlock.logic.crypto.FileCryptoReader;
 import me.xurround.mlock.logic.crypto.FileCryptoWriter;
 import me.xurround.mlock.misc.exception.InvalidPasswordException;
+import me.xurround.mlock.misc.exception.StorageLoaderException;
 import me.xurround.mlock.model.AccountRecord;
 import me.xurround.mlock.model.PasswordStorage;
 import me.xurround.mlock.model.ServiceRecord;
@@ -32,11 +33,13 @@ public class CryptoPasswordLoader implements IPasswordStorageLoader
     public PasswordStorage load(String masterPassword) throws InvalidPasswordException
     {
         PasswordStorage storage = new PasswordStorage();
-        dataPath = Path.of(App.getInstance().getDataManager().getPreferences().getCurrentProfile().getDataDir(), "pStorage.dat");
         try
         {
+            dataPath = Path.of(App.getInstance().getProfileManager().getProfile().getDataDir(), "pStorage.dat");
             cryptoReader = new FileCryptoReader(dataPath.toString(), masterPassword);
             cryptoWriter = new FileCryptoWriter(dataPath.toString(), masterPassword);
+            if (!App.getInstance().getProfileManager().isAuthorized())
+                return storage;
             cryptoReader.open();
             String dataLine = cryptoReader.decryptLine();
             while (dataLine != null && !dataLine.equals(""))
@@ -87,7 +90,7 @@ public class CryptoPasswordLoader implements IPasswordStorageLoader
     public void save(PasswordStorage storage)
     {
         if (storage == null || cryptoWriter == null || dataPath == null)
-            return;
+            return; //TODO: replace with exception throwing
         try
         {
             File storagePath = dataPath.toFile();

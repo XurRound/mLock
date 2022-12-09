@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import me.xurround.mlock.layout.components.AutocompletionTextField?>
 
-<?import javafx.scene.text.Text?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="me.xurround.mlock.controller.AccountAddController"
@@ -28,45 +25,52 @@
               styleClass="registerContent">
 
             <Label alignment="TOP_CENTER"
-                   text="Add new account"
+                   text="%add_new_account"
                    style="-fx-font-size: 24;"/>
 
             <HBox styleClass="hintedField">
-                <Label text="Service name"/>
-                <TextField alignment="CENTER"
-                           promptText="Service name"
-                           prefWidth="240"
-                           fx:id="serviceNameTF"/>
+                <Label text="%service_name"/>
+                <AutocompletionTextField alignment="CENTER"
+                                         promptText="%service_name"
+                                         prefWidth="240"
+                                         fx:id="serviceNameTF"/>
             </HBox>
 
             <HBox styleClass="hintedField">
-                <Label text="Username"/>
-                <TextField alignment="CENTER"
-                           promptText="Username"
-                           prefWidth="240"
-                           fx:id="usernameTF"/>
+                <Label text="%username"/>
+                <AutocompletionTextField alignment="CENTER"
+                                         promptText="%username"
+                                         prefWidth="240"
+                                         fx:id="usernameTF"/>
             </HBox>
 
             <HBox styleClass="hintedField">
-                <Label text="Password"/>
+                <Label text="%password"/>
                 <HBox styleClass="dirChooserView">
-                    <VBox>
+                    <VBox spacing="5">
                         <TextField alignment="CENTER"
                                    prefWidth="240"
-                                   promptText="Password"
+                                   promptText="%password"
                                    fx:id="passwordTF"/>
 
-                        <CheckBox text="Show password"
-                                  fx:id="showPasswordCB"
-                                  focusTraversable="false"
-                                  style="-fx-padding: 7 0 0 0;"/>
+                        <HBox spacing="5">
+                            <CheckBox text="%show_password"
+                                      fx:id="showPasswordCB"
+                                      focusTraversable="false"
+                                      style="-fx-padding: 7 0 0 0;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Button text="%generate"
+                                    fx:id="generateBT"
+                                    focusTraversable="false"
+                                    alignment="CENTER_RIGHT"/>
+                        </HBox>
                     </VBox>
                 </HBox>
 
             </HBox>
 
             <HBox styleClass="hintedField">
-                <Label text="Registration date"/>
+                <Label text="%registration_date"/>
                 <HBox styleClass="dirChooserView">
                     <DatePicker promptText="%registration_date"
                                 prefWidth="240"
@@ -77,7 +81,7 @@
             <HBox spacing="10"
                   alignment="CENTER"
                   style="-fx-padding: 10 0 0 0;">
-                <Button text="Add account"
+                <Button text="%add_account"
                         prefWidth="150"
                         fx:id="accountAddBT"/>
                 <Button text="%cancel"

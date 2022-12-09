@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 import javafx.application.Application;
 import me.xurround.mlock.layout.SceneManager;
 import me.xurround.mlock.logic.DataManager;
+import me.xurround.mlock.logic.ProfileManager;
 import me.xurround.mlock.logic.crypto.loader.CryptoPasswordLoader;
 import me.xurround.mlock.logic.prefs.BinaryPreferencesLoader;
 import me.xurround.mlock.misc.enums.AppScene;
@@ -14,6 +15,8 @@ import java.util.Objects;
 
 public class App extends Application
 {
+    private ProfileManager profileManager;
+
     private SceneManager sceneManager;
 
     private DataManager dataManager;
@@ -21,6 +24,8 @@ public class App extends Application
     private LocalizationManager localizationManager;
 
     private static App instance;
+
+    private Stage mainStage;
 
     public App()
     {
@@ -30,16 +35,18 @@ public class App extends Application
     @Override
     public void start(Stage stage)
     {
+        mainStage = stage;
         System.setProperty("prism.lcdtext", "false");
         dataManager = new DataManager(new BinaryPreferencesLoader(), new CryptoPasswordLoader());
         localizationManager = new LocalizationManager();
         localizationManager.setLanguage(getDataManager().getPreferences().getLanguage());
         sceneManager = new SceneManager(stage, 800, 500);
+        profileManager = new ProfileManager();
         if (getDataManager().getPreferences().isFirstRun())
             sceneManager.setLayout(AppScene.SPLASH);
         else
             sceneManager.setLayout(AppScene.LOGIN);
-        stage.setTitle(getLocalizationManager().getLocalizedString("title_pass_manager"));
+        updateTitle();
         stage.getIcons().add(new Image(Objects.requireNonNull(App.class.getResourceAsStream("img/icon.png"))));
         stage.setResizable(false);
         stage.setOnCloseRequest(e ->
@@ -53,6 +60,11 @@ public class App extends Application
     public static void main(String[] args)
     {
         launch();
+    }
+
+    public void updateTitle()
+    {
+        mainStage.setTitle(getLocalizationManager().getLocalizedString("title_pass_manager"));
     }
 
     public static App getInstance()
@@ -73,5 +85,10 @@ public class App extends Application
     public LocalizationManager getLocalizationManager()
     {
         return localizationManager;
+    }
+
+    public ProfileManager getProfileManager()
+    {
+        return profileManager;
     }
 }

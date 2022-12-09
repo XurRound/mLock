@@ -20,7 +20,7 @@ public class FileCryptoWriter
 
     private final String path;
 
-    public FileCryptoWriter(String path, String password) throws NoSuchPaddingException, NoSuchAlgorithmException, FileNotFoundException, InvalidKeyException, InvalidAlgorithmParameterException
+    public FileCryptoWriter(String path, String password) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidAlgorithmParameterException
     {
         this.path = path;
         cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");

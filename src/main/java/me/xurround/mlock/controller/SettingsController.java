@@ -34,7 +34,8 @@ public class SettingsController implements Initializable
 
         applyBT.setOnAction(e ->
         {
-            App.getInstance().getSceneManager().setLayout(AppScene.MAIN, TransitionType.SLIDE_LEFT);
+            App.getInstance().getSceneManager().setLayout(AppScene.LOGIN, TransitionType.SLIDE_LEFT);
+            App.getInstance().updateTitle();
         });
     }
 }

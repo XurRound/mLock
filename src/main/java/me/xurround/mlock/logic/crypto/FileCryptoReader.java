@@ -43,6 +43,16 @@ public class FileCryptoReader
         return data;
     }
 
+    public String tryDecryptLine()
+    {
+        try
+        {
+            return decryptLine();
+        }
+        catch (Exception ignored) { }
+        return null;
+    }
+
     public String decryptLine() throws IOException
     {
         return cryptoReader.readLine();

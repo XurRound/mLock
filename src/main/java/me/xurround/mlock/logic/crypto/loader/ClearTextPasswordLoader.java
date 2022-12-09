@@ -21,9 +21,9 @@ public class ClearTextPasswordLoader implements IPasswordStorageLoader
     public PasswordStorage load(String masterPassword)
     {
         PasswordStorage storage = new PasswordStorage();
-
+        if (!App.getInstance().getProfileManager().isAuthorized())
+            return storage;
         String userDataDir = App.getInstance().getDataManager().getPreferences().getCurrentProfile().getDataDir();
-
         try
         {
             List<String> entries = Files.readAllLines(Path.of(userDataDir, "pStoragePlain.dat"));

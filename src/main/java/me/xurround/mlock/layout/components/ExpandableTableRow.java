@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.collections.FXCollections;
 import javafx.beans.property.ObjectProperty;
+import me.xurround.mlock.App;
 import me.xurround.mlock.model.AccountRecord;
 import me.xurround.mlock.model.ServiceRecord;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -88,10 +89,44 @@ public class ExpandableTableRow extends TableRow<ServiceRecord>
             }
         });
 
-        //Allow copying
-
-        MenuItem copyItem = new MenuItem("Copy password");
-        copyItem.setOnAction(e ->
+        MenuItem copyUsernameItem = new MenuItem(App.getInstance().getLocalizationManager().getLocalizedString("copy_username"));
+        MenuItem copyPasswordItem = new MenuItem(App.getInstance().getLocalizationManager().getLocalizedString("copy_password"));
+        //MenuItem editItem = new MenuItem(App.getInstance().getLocalizationManager().getLocalizedString("edit"));
+        MenuItem removeItem = new MenuItem(App.getInstance().getLocalizationManager().getLocalizedString("remove"));
+        removeItem.setOnAction(e ->
+        {
+            AccountRecord account = acTable.getSelectionModel().getSelectedItem();
+            if (account != null)
+            {
+                Alert promptAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                promptAlert.setTitle(App.getInstance().getLocalizationManager().getLocalizedString("remove_confirmation"));
+                promptAlert.setHeaderText(App.getInstance().getLocalizationManager().getLocalizedString("remove_confirmation"));
+                promptAlert.setContentText(App.getInstance().getLocalizationManager().getLocalizedString("remove_confirmation_text"));
+                promptAlert.getButtonTypes().clear();
+                promptAlert.getButtonTypes().addAll(ButtonType.NO, ButtonType.YES);
+                promptAlert.setOnHidden(evt ->
+                {
+                    if (promptAlert.getResult() == ButtonType.YES)
+                    {
+                        App.getInstance().getDataManager().getPasswordStorage().removeAccount(account);
+                        acTable.getColumns().clear();
+                        acTable.getColumns().addAll(serviceNameColumn, serviceUsernameColumn, servicePasswordColumn, serviceRegistrationDateColumn);
+                    }
+                });
+                promptAlert.show();
+            }
+        });
+        copyUsernameItem.setOnAction(e ->
+        {
+            AccountRecord account = acTable.getSelectionModel().getSelectedItem();
+            if (account != null)
+            {
+                ClipboardContent content = new ClipboardContent();
+                content.putString(account.getUsername());
+                Clipboard.getSystemClipboard().setContent(content);
+            }
+        });
+        copyPasswordItem.setOnAction(e ->
         {
             AccountRecord account = acTable.getSelectionModel().getSelectedItem();
             if (account != null)
@@ -102,7 +137,7 @@ public class ExpandableTableRow extends TableRow<ServiceRecord>
             }
         });
         ContextMenu contextMenu = new ContextMenu();
-        contextMenu.getItems().add(copyItem);
+        contextMenu.getItems().addAll(copyUsernameItem, copyPasswordItem, new SeparatorMenuItem(), removeItem);
         acTable.setContextMenu(contextMenu);
 
         return detailsPane;

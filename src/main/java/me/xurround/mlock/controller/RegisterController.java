@@ -12,6 +12,7 @@ import me.xurround.mlock.misc.IOHelper;
 import me.xurround.mlock.misc.NotifyHelper;
 import me.xurround.mlock.misc.RandomHelper;
 import me.xurround.mlock.misc.enums.AppScene;
+import me.xurround.mlock.misc.enums.RegisterState;
 import me.xurround.mlock.misc.enums.TransitionType;
 import me.xurround.mlock.model.Preferences;
 import me.xurround.mlock.model.Profile;
@@ -19,7 +20,6 @@ import me.xurround.mlock.settings.LocalizationManager;
 
 import java.io.File;
 import java.net.URL;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
@@ -81,29 +81,25 @@ public class RegisterController implements Initializable
                     localizationManager.getLocalizedString("bad_input"));
                 return;
             }
-            if (Files.exists(Path.of(storagePathTF.getText())))
+            RegisterState registerState = App.getInstance().getProfileManager().register(profileNameTF.getText(), storagePathTF.getText(), masterPasswordPF.getText());
+            switch (registerState)
             {
-                NotifyHelper.notifyAlert(Alert.AlertType.ERROR,
-                    localizationManager.getLocalizedString("error_title"),
-                    localizationManager.getLocalizedString("user_folder_exists"),
-                    localizationManager.getLocalizedString("user_folder_exists_text"));
-                return;
-            }
-            for (Profile profile : App.getInstance().getDataManager().getPreferences().getProfiles())
-            {
-                if (profile.getProfileName().equals(profileNameTF.getText()))
-                {
+                case OK:
+                    App.getInstance().getSceneManager().setLayout(AppScene.LOGIN, TransitionType.SLIDE_RIGHT);
+                    break;
+                case USER_EXISTS:
                     NotifyHelper.notifyAlert(Alert.AlertType.ERROR,
                         localizationManager.getLocalizedString("error_title"),
                         localizationManager.getLocalizedString("user_exists"),
                         localizationManager.getLocalizedString("user_exists_text"));
-                    return;
-                }
+                    break;
+                case USER_DIRECTORY_EXISTS:
+                    NotifyHelper.notifyAlert(Alert.AlertType.ERROR,
+                        localizationManager.getLocalizedString("error_title"),
+                        localizationManager.getLocalizedString("user_folder_exists"),
+                        localizationManager.getLocalizedString("user_folder_exists_text"));
+                    break;
             }
-            Profile profile = new Profile(profileNameTF.getText(), storagePathTF.getText());
-            App.getInstance().getDataManager().getPreferences().getProfiles().add(profile);
-            preferences.setCurrentProfile(profile.getProfileName());
-            App.getInstance().getSceneManager().setLayout(AppScene.LOGIN, TransitionType.SLIDE_RIGHT);
         });
 
         cancelBT.setDisable(App.getInstance().getDataManager().getPreferences().getCurrentProfile().equals(Profile.getDefault()));

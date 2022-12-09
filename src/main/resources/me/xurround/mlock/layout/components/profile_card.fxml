@@ -15,7 +15,7 @@
                   maxWidth="180">
                 <StackPane styleClass="avatar">
                     <Circle fx:id="avatarCL" radius="30"/>
-                    <Label fx:id="avatarLB" style="-fx-font-size: 28;" alignment="CENTER" text="X"/>
+                    <Label fx:id="avatarLB" style="-fx-font-size: 28;" alignment="CENTER" text="?"/>
                 </StackPane>
                 <VBox alignment="CENTER_LEFT"
                       styleClass="profileLogo">
