@@ -11,6 +11,8 @@ import me.xurround.mlock.model.Profile;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ProfileManager
 {
@@ -49,6 +51,10 @@ public class ProfileManager
 
     public RegisterState register(String profileName, String storagePath, String masterPassword)
     {
+        Pattern passwordRequirements = Pattern.compile("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\\W\\S]{10,}");
+        Matcher matcher = passwordRequirements.matcher(masterPassword);
+        if (!matcher.matches())
+            return RegisterState.WEAK_PASSWORD;
         if (Files.exists(Path.of(storagePath)))
             return RegisterState.USER_DIRECTORY_EXISTS;
         for (Profile profile : App.getInstance().getDataManager().getPreferences().getProfiles())

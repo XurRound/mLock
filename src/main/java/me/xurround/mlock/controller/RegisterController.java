@@ -99,6 +99,12 @@ public class RegisterController implements Initializable
                         localizationManager.getLocalizedString("user_folder_exists"),
                         localizationManager.getLocalizedString("user_folder_exists_text"));
                     break;
+                case WEAK_PASSWORD:
+                    NotifyHelper.notifyAlert(Alert.AlertType.ERROR,
+                        localizationManager.getLocalizedString("error_title"),
+                        localizationManager.getLocalizedString("weak_password"),
+                        localizationManager.getLocalizedString("weak_password_text"));
+                    break;
             }
         });
 
